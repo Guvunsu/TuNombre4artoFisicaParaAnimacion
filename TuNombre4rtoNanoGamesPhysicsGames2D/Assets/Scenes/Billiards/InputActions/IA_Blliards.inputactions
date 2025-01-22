@@ -1,0 +1,34 @@
+{
+    "name": "IA_Blliards",
+    "maps": [
+        {
+            "name": "Billiards",
+            "id": "03067473-00a3-4140-baff-4db54bb2d23b",
+            "actions": [
+                {
+                    "name": "Click",
+                    "type": "Button",
+                    "id": "5b19a40b-b094-4552-b4ac-a4619ba77e72",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "869eeaa4-b09c-40d2-b01c-76c690c5cc0f",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
