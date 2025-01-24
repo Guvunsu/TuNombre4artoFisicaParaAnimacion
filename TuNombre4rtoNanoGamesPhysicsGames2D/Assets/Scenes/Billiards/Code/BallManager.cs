@@ -5,11 +5,14 @@ public class BallManager : MonoBehaviour
 {
     [SerializeField] GameObject ballPrefab;
     [SerializeField] Transform[] spawnPoints;
-    [SerializeField] float speed;
+    [SerializeField] float speedPercentage;
     [SerializeField] float time = 5f;
     [SerializeField] float tiempoTranscurrido = 0f;
     float spawnPos;
+    float cronometerPercentage;
+    float cronometerTotalTime;
     bool tacoIsTouchedMe;
+    float dir;
 
 
     void Start()
@@ -29,10 +32,20 @@ public class BallManager : MonoBehaviour
     }
     public void MoveBallBillardForward()
     {
-        speed = Time.deltaTime;
-        Vector3 startPos = transform.position;
-        Vector3 endPos = transform.position + transform.right * speed;
-        transform.position = Vector3.Lerp(startPos, endPos, speed);
+        cronometerTotalTime += Time.deltaTime;
+        if (cronometerPercentage % (5f * 2f) < (5f))
+        {
+            dir = 1f;
+        }
+        else //if (cronometerPercentage % (5f * 2f) >= (5f))
+        {
+            dir = -1f;
+        }
+        cronometerPercentage += Time.deltaTime * dir;
+        speedPercentage += (cronometerPercentage / 5f);
+        //Vector3 startPos = transform.position;
+        //Vector3 endPos = transform.position + transform.right * speed;
+        transform.position = Vector3.Lerp(, speedPercentage);
 
     }
     private void OnCollisionEnter(Collision collision)
