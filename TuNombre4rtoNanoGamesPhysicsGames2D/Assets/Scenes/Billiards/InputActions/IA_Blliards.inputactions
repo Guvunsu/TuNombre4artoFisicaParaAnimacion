@@ -6,12 +6,21 @@
             "id": "03067473-00a3-4140-baff-4db54bb2d23b",
             "actions": [
                 {
-                    "name": "Click",
-                    "type": "Value",
+                    "name": "Mouse ClickRight",
+                    "type": "Button",
                     "id": "5b19a40b-b094-4552-b4ac-a4619ba77e72",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "Tap",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Keyboard SpaceBar",
+                    "type": "Button",
+                    "id": "fe88f501-8c10-4ed4-9cc3-d88c982a003d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "Press",
                     "initialStateCheck": true
                 }
             ],
@@ -20,15 +29,48 @@
                     "name": "",
                     "id": "869eeaa4-b09c-40d2-b01c-76c690c5cc0f",
                     "path": "<Mouse>/rightButton",
-                    "interactions": "",
+                    "interactions": "Press",
                     "processors": "",
-                    "groups": "",
-                    "action": "Click",
+                    "groups": ";Control",
+                    "action": "Mouse ClickRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6797a45c-9860-435b-9b3e-3b88c060e103",
+                    "path": "<Keyboard>/space",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": ";Control",
+                    "action": "Keyboard SpaceBar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
             ]
         }
     ],
-    "controlSchemes": []
+    "controlSchemes": [
+        {
+            "name": "Control",
+            "bindingGroup": "Control",
+            "devices": []
+        },
+        {
+            "name": "New Control Scheme",
+            "bindingGroup": "New Control Scheme",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        }
+    ]
 }

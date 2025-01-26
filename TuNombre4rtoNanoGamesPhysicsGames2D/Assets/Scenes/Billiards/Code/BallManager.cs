@@ -1,5 +1,5 @@
 namespace Gavryk.Physics.Billiard {
-
+    using System.Drawing;
     using Unity.VisualScripting;
     using UnityEngine;
 
@@ -9,10 +9,9 @@ namespace Gavryk.Physics.Billiard {
             HIT_AND_MOVING,
             FINISHED
         }
-
         protected BallFSM ballState;
         [SerializeField] GameObject ballPrefab;
-        [SerializeField] Transform[] spawnPoints;
+        [SerializeField] Transform goToX;
         [SerializeField] float speedBall;
         [SerializeField] float speedPercentage;
         //[SerializeField] float time = 5f;
@@ -26,12 +25,12 @@ namespace Gavryk.Physics.Billiard {
 
         void Start() {
             ballPrefab = GetComponent<GameObject>();
-            SpawningBallAndWaitingForHit();
+            WaitingForHit();
         }
         void Update() {
             switch (ballState) {
                 case BallFSM.WAITING_FOR_HIT:
-                    SpawningBallAndWaitingForHit();
+                    WaitingForHit();
                     break;
                 case BallFSM.HIT_AND_MOVING:
                     MoveBallBillardForward();
@@ -40,14 +39,16 @@ namespace Gavryk.Physics.Billiard {
                     break;
             }
         }
-        void SpawningBallAndWaitingForHit() {
-            spawnPos = Random.Range(1, 1 * spawnPoints.Length);
-            transform.position = spawnPoints[spawnPos].position;
+        void WaitingForHit() {
+            //spawnPos = Random.Range(1, 1 * spawnPoints.Length);
+            //transform.position = spawnPoints[spawnPos].position;
             ballState = BallFSM.WAITING_FOR_HIT;
         }
         public void MoveBallBillardForward() {
 
             if (ballState == BallFSM.HIT_AND_MOVING) {
+                // implementar tal vez un vector3 lerp para que avance hacia adelante
+                transform.position = Vector3.Lerp(transform.position, goToX.position, speedPercentage).normalized;
                 GetComponent<Rigidbody>().linearVelocity = Vector3.right * speedBall;
                 speedBall--;
                 speedBall = 0f;
