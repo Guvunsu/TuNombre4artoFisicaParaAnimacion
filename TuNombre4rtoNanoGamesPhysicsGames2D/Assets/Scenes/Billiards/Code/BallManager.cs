@@ -4,6 +4,7 @@ namespace Gavryk.Physics.Billiard {
     using UnityEngine;
 
     public class BallManager : MonoBehaviour {
+
         #region Enum & Variables
         public enum BallFSM {
             WAITING_FOR_HIT,
@@ -54,14 +55,13 @@ namespace Gavryk.Physics.Billiard {
         public void MoveBallBillardForward() {
 
             if (ballState == BallFSM.HIT_AND_MOVING) {
-                // implementar tal vez un vector3 lerp para que avance hacia adelante
                 transform.position = Vector3.Lerp(transform.position, goToX.position, speedPercentage).normalized;
                 GetComponent<Rigidbody>().linearVelocity = Vector3.right * speedBall;
                 speedBall--;
                 speedBall = 0f;
                 ballState = BallFSM.FINISHED;
             }
-            //cronometerTotalTime += Time.deltaTime;
+          /*  //cronometerTotalTime += Time.deltaTime;
             //if (cronometerPercentage % (5f * 2f) < (5f)) {
             //    dir = 1f;
             //} else //if (cronometerPercentage % (5f * 2f) >= (5f))
@@ -69,7 +69,7 @@ namespace Gavryk.Physics.Billiard {
             //    dir = -1f;
             //}
             //cronometerPercentage += Time.deltaTime * dir;
-            //speedPercentage += (cronometerPercentage / 5f);
+            //speedPercentage += (cronometerPercentage / 5f);*/
         }
 
         #endregion BallInteraction

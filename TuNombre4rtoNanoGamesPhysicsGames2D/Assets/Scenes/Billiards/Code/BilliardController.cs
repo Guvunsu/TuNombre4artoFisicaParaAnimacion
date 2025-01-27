@@ -23,8 +23,10 @@ namespace Gavryk.Physics.Billiard
         [SerializeField] GameObject player;
         [SerializeField] Transform pointA;
         [SerializeField] Transform pointB;
+        [SerializeField] Transform PointC;
+        [SerializeField] Transform PointD;
         PlayerInput button;
-
+        Vector3 moveInput;
         [SerializeField] float time = 10f;
         [SerializeField] float tiempoTranscurrido = 0f;
         [SerializeField] float hitForce;
@@ -33,7 +35,7 @@ namespace Gavryk.Physics.Billiard
         [SerializeField] float cronometerPercentage;
         float dir;
         float porcentaje;
-        //bool isTouch = true;
+        bool isTouch;
 
         protected TacoFSM tacoState;
 
@@ -47,31 +49,19 @@ namespace Gavryk.Physics.Billiard
                 Debug.Log("Barra espaciadora presionada");
                 if (Keyboard.current.spaceKey.wasPressedThisFrame)
                 {
+                    moveInput = value.ReadValue<Vector3>();
                     Debug.Log("Click" + value.ReadValue<Vector2>().ToString());
                     ConfirmHit();
                 }
                 Debug.Log("Clic derecho detectado");
                 if (Mouse.current.rightButton.wasPressedThisFrame)
                 {
+                    moveInput = value.ReadValue<Vector3>();
                     Debug.Log("Click" + value.ReadValue<Vector2>().ToString());
                     ConfirmHit();
                 }
             }
         }
-        #region OnEnable or Disable 
-        private void OnEnable()
-        {
-            //inputActions.Player.Move.performed += WaitingForHit();
-            //inputActions.Player.Attack.performed += ConfirmHit();
-
-            //inputActions.Enable();
-        }
-
-        private void OnDisable()
-        {
-            //inputActions.Disable();
-        }
-        #endregion OnEnable or Disable 
 
         #endregion InputActions
 
@@ -103,12 +93,10 @@ namespace Gavryk.Physics.Billiard
         #region ActionGame
         protected void WaitingForHit()
         {
-            //tacoState = TacoFSM.WAITING_FOR_HIT | TacoFSM.FINISHED;
             tiempoTranscurrido += Time.deltaTime;
             porcentaje = Mathf.PingPong(tiempoTranscurrido, time) / time; // / (time / 2);
             transform.position = Vector3.Lerp(pointA.position, pointB.position, porcentaje);
-
-            //TODO: implementar eso que tengo en la foto de x (0,5) se regresa x (5,10) se iba 
+            /*//TODO: implementar eso que tengo en la foto de x (0,5) se regresa x (5,10) se iba 
             //if (tiempoTranscurrido >= time)
             //{
             //    time -= Time.deltaTime;
@@ -124,7 +112,7 @@ namespace Gavryk.Physics.Billiard
             //}
             //cronometerPercentage += Time.deltaTime; // * dir;
             //speedPercentage += (cronometerPercentage / 5f);
-            //tacoState = TacoFSM.FINISHED;
+            //tacoState = TacoFSM.FINISHED;*/
         }
         protected void GoingToHit()
         {
@@ -138,10 +126,24 @@ namespace Gavryk.Physics.Billiard
         }
         protected void ConfirmHit()
         {
-            tacoState = TacoFSM.GOING_TO_HIT;
-            tiempoTranscurrido = 0f;
-            //pointA.position = transform.position;
-            //pointB.position = pointA.transform.position + (Vector3.right * direction); // ponerle un 3.0f
+            void OnCollisionEnter(Collision collision)
+            {
+                if (collision.gameObject.CompareTag("Ball") && isTouch == true)
+                {
+                    switch (tacoState)
+                    {
+                        case TacoFSM.GOING_TO_HIT:
+                            transform.position = Vector3.Lerp(PointC.position, PointD.position, tiempoTranscurrido);
+                            ballManager.MoveBallBillardForward();
+                            tiempoTranscurrido = 0f;
+                            print("Haz ganado !");
+                            break;
+                            //case TacoFSM.GOING_TO_HIT:
+                            //    print("No le haz dado");
+                            //    break;
+                    }
+                }
+            }
         }
         protected void MovingTacoTowardBall()
         {
@@ -153,14 +155,5 @@ namespace Gavryk.Physics.Billiard
         }
 
         #endregion ActionGame
-
-        void OnCollisionEnter(Collision collision)
-        {
-            if (/*collision.gameObject.CompareTag("Player") && */collision.gameObject.CompareTag("Ball") /*&& isTouch*/)
-            {
-                ballManager.MoveBallBillardForward();
-                print("Haz ganado !");
-            }
-        }
     }
 }
