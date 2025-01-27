@@ -4,6 +4,7 @@ namespace Gavryk.Physics.Billiard {
     using UnityEngine;
 
     public class BallManager : MonoBehaviour {
+        #region Enum & Variables
         public enum BallFSM {
             WAITING_FOR_HIT,
             HIT_AND_MOVING,
@@ -22,7 +23,9 @@ namespace Gavryk.Physics.Billiard {
         //bool tacoIsTouchedMe;
         //float dir;
 
+        #endregion Enum & Variables
 
+        #region UnityMethods
         void Start() {
             ballPrefab = GetComponent<GameObject>();
             WaitingForHit();
@@ -39,6 +42,10 @@ namespace Gavryk.Physics.Billiard {
                     break;
             }
         }
+
+        #endregion UnityMethods
+
+        #region BallInteraction
         void WaitingForHit() {
             //spawnPos = Random.Range(1, 1 * spawnPoints.Length);
             //transform.position = spawnPoints[spawnPos].position;
@@ -54,8 +61,6 @@ namespace Gavryk.Physics.Billiard {
                 speedBall = 0f;
                 ballState = BallFSM.FINISHED;
             }
-
-
             //cronometerTotalTime += Time.deltaTime;
             //if (cronometerPercentage % (5f * 2f) < (5f)) {
             //    dir = 1f;
@@ -65,8 +70,10 @@ namespace Gavryk.Physics.Billiard {
             //}
             //cronometerPercentage += Time.deltaTime * dir;
             //speedPercentage += (cronometerPercentage / 5f);
-
         }
+
+        #endregion BallInteraction
+
         private void OnCollisionEnter(Collision collision) {
             Debug.Log("me toco el taco");
             if (collision.gameObject.CompareTag("Player") /*&& collision.gameObject.CompareTag("Ball") /*&& tacoIsTouchedMe==true*/) {
