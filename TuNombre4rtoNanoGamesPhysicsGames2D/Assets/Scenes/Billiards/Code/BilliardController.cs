@@ -61,15 +61,15 @@ namespace Gavryk.Physics.Billiard
         #region OnEnable or Disable 
         private void OnEnable()
         {
-            inputActions.Player.Move.performed += WaitingForHit();
-            inputActions.Player.Attack.performed += ConfirmHit();
+            //inputActions.Player.Move.performed += WaitingForHit();
+            //inputActions.Player.Attack.performed += ConfirmHit();
 
-            inputActions.Enable();
+            //inputActions.Enable();
         }
 
         private void OnDisable()
         {
-            inputActions.Disable();
+            //inputActions.Disable();
         }
         #endregion OnEnable or Disable 
 
@@ -103,28 +103,28 @@ namespace Gavryk.Physics.Billiard
         #region ActionGame
         protected void WaitingForHit()
         {
-            tacoState = TacoFSM.WAITING_FOR_HIT | TacoFSM.FINISHED;
+            //tacoState = TacoFSM.WAITING_FOR_HIT | TacoFSM.FINISHED;
             tiempoTranscurrido += Time.deltaTime;
-            porcentaje = Mathf.PingPong(tiempoTranscurrido, time / 2) / (time / 2);
+            porcentaje = Mathf.PingPong(tiempoTranscurrido, time) / time; // / (time / 2);
             transform.position = Vector3.Lerp(pointA.position, pointB.position, porcentaje);
 
             //TODO: implementar eso que tengo en la foto de x (0,5) se regresa x (5,10) se iba 
-            if (tiempoTranscurrido >= time)
-            {
-                time -= Time.deltaTime;
-                cronometerTotalTime += Time.deltaTime;
-            }
-            else if (cronometerPercentage % (5f * 2f) < (5f))
-            {
-                dir = 1f;
-            }
-            else if (cronometerPercentage % (5f * 2f) >= (10f))
-            {
-                dir = -1f;
-            }
-            cronometerPercentage += Time.deltaTime * dir;
-            speedPercentage += (cronometerPercentage / 5f);
-            tacoState = TacoFSM.FINISHED;
+            //if (tiempoTranscurrido >= time)
+            //{
+            //    time -= Time.deltaTime;
+            //    cronometerTotalTime += Time.deltaTime;
+            //}
+            //else if (cronometerPercentage % (5f * 2f) < (5f))
+            //{
+            //    dir = 1f;
+            //}
+            //else if (cronometerPercentage % (5f * 2f) >= (10f))
+            //{
+            //    dir = -1f;
+            //}
+            //cronometerPercentage += Time.deltaTime; // * dir;
+            //speedPercentage += (cronometerPercentage / 5f);
+            //tacoState = TacoFSM.FINISHED;
         }
         protected void GoingToHit()
         {
