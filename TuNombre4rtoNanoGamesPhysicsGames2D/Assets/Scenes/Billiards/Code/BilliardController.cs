@@ -1,4 +1,5 @@
-namespace Gavryk.Physics.Billiard {
+namespace Gavryk.Physics.Billiard
+{
     using NUnit.Framework.Internal.Commands;
     using UnityEngine;
     using UnityEngine.InputSystem;
@@ -7,10 +8,12 @@ namespace Gavryk.Physics.Billiard {
 
     // se me olvidara si no escribo esto 
     // ponerle el iskinematic en una linea 
-    public class BilliardController : MonoBehaviour {
+    public class BilliardController : MonoBehaviour
+    {
 
         #region LocalVariables & ENUM
-        public enum TacoFSM {
+        public enum TacoFSM
+        {
             WAITING_FOR_HIT,
             GOING_TO_HIT,
             FINISHED
@@ -39,20 +42,24 @@ namespace Gavryk.Physics.Billiard {
         #endregion LocalVariables & ENUM
 
         #region InputActions
-        public void OnClickMouse(InputAction.CallbackContext value) {
-            if (value.performed && tacoState == TacoFSM.WAITING_FOR_HIT) {
+        public void OnClickMouse(InputAction.CallbackContext value)
+        {
+            if (value.performed && tacoState == TacoFSM.WAITING_FOR_HIT)
+            {
                 Debug.Log("Barra espaciadora presionada");
                 //if (Keyboard.current.spaceKey.wasPressedThisFrame) {
                 //    moveInput = value.ReadValue<Vector3>();
                 //    Debug.Log("Click" + value.ReadValue<Vector2>().ToString());
                 //    ConfirmHit(value);
                 //}
-                if (value.performed) {
+                if (value.performed)
+                {
                     tacoState = TacoFSM.GOING_TO_HIT;
                     ConfirmHit();
                 }
                 Debug.Log("Clic derecho detectado");
-                if (Mouse.current.rightButton.wasPressedThisFrame) {
+                if (Mouse.current.rightButton.wasPressedThisFrame)
+                {
                     moveInput = value.ReadValue<Vector3>();
                     Debug.Log("Click" + value.ReadValue<Vector2>().ToString());
                     ConfirmHit();
@@ -63,13 +70,16 @@ namespace Gavryk.Physics.Billiard {
         #endregion InputActions
 
         #region UnityMethods
-        void Start() {
+        void Start()
+        {
             tacoState = TacoFSM.WAITING_FOR_HIT;
             player = GetComponent<GameObject>();
             //button = GetComponent<PlayerInput>();
         }
-        void Update() {
-            switch (tacoState) {
+        void Update()
+        {
+            switch (tacoState)
+            {
                 case TacoFSM.WAITING_FOR_HIT:
                     WaitingForHit();
                     break;
@@ -87,10 +97,16 @@ namespace Gavryk.Physics.Billiard {
         #endregion UnityMethods
 
         #region ActionGame
-        public void WaitingForHit() {
+        /// <summary>
+        /// Movimiento del taco de billar 
+        /// </summary>
+        public void WaitingForHit()
+        {
             timeGame += Time.deltaTime;
-            float porcentaje = Mathf.PingPong(timeGame, timeOscilationTaco) / timeOscilationTaco; // / (timeOscilationTaco / 2);
+            float porcentaje = Mathf.PingPong(timeGame, timeOscilationTaco) / timeOscilationTaco;
             transform.position = Vector3.Lerp(pointA.position, pointB.position, porcentaje);
+
+            // intento Opcional recomendado en vez del PingPong
             /*//TODO: implementar eso que tengo en la foto de x (0,5) se regresa x (5,10) se iba 
             //if (timeGame >= timeOscilationTaco)
             //{
@@ -109,46 +125,42 @@ namespace Gavryk.Physics.Billiard {
             //speedPercentage += (cronometerPercentage / 5f);
             //tacoState = TacoFSM.FINISHED;*/
         }
-        public void GoingToHit() {
-            //timeGame += Time.deltaTime;
-            //float porcentaje = timeGame / timeOscilationTaco;
-            // transform.position = Vector3.Lerp(pointA.position, pointB.position, timeGame);
-            if (timeGame <= timeOscilationTaco) {
+        /// <summary>
+        /// intento de limitar el mov. para detenerlo a los 6 sec
+        /// activa el esatdo finito de quedarse quieto
+        /// </summary>
+        public void GoingToHit()
+        {
+            if (timeGame <= timeOscilationTaco)
+            {
                 timeGame = 6f;
                 print("Loose the game");
                 tacoState = TacoFSM.FINISHED;
             }
         }
-        public void ConfirmHit() {
-            //void OnCollisionEnter(Collision collision) {
-            //if (collision.gameObject.CompareTag("Ball") && isTouch == true) {
-            switch (tacoState) {
+        /// <summary>
+        /// intento de mover con 2 puntos de referewncia del taco 
+        /// </summary>
+        public void ConfirmHit()
+        {
+            Debug.Log("Me activo en Confirm Hit ?");
+            switch (tacoState)
+            {
                 case TacoFSM.GOING_TO_HIT:
                     transform.position += Vector3.Lerp(PointC.position, PointD.position, timeGame / timeOscilationTaco);
-                    //MovingTacoTowardBall();
-                    //ballManager.MoveBallBillardForward();
-                    //timeGame = 0f;
                     print("Haz ganado !");
                     break;
-                    //case TacoFSM.GOING_TO_HIT:
-                    //    print("No le haz dado");
-                    //    break;
             }
-
-            //}
-            //}
-            //private void OnCollisionEnter(Collision collision) {
-            //    if (collision.gameObject.CompareTag("Ball") && isTouch) {
-            //        Debug.Log("¡Taco golpeó la bola!");
-            //        tacoState = TacoFSM.GOING_TO_HIT;
-            //        ballManager.MoveBallBillardForward();
-            //    }
-            //}
         }
-        public void MovingTacoTowardBall() {
+        /// <summary>
+        /// mover taco hacia adelante del taco 
+        /// </summary>
+        public void MovingTacoTowardBall()
+        {
 
             transform.position += Vector3.right * hitForce * Time.deltaTime;
-            if (transform.position.x > 15.0f) {
+            if (transform.position.x > 15.0f)
+            {
                 tacoState = TacoFSM.FINISHED;
             }
         }
