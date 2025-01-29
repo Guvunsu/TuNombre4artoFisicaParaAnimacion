@@ -1,6 +1,7 @@
 namespace Gavryk.Physics.Billiard
 {
     using NUnit.Framework.Internal.Commands;
+    using TMPro;
     using UnityEngine;
     using UnityEngine.InputSystem;
     using UnityEngine.InputSystem.LowLevel;
@@ -12,14 +13,19 @@ namespace Gavryk.Physics.Billiard
     {
 
         #region LocalVariables & ENUM
+        // es recomendable hacer un script de FSM y heredar su info aqui ya que por estrucutra de scripts ya hace 2 cosas este script, solo 1 tarea por script
         public enum TacoFSM
         {
             WAITING_FOR_HIT,
             GOING_TO_HIT,
-            FINISHED
+            FINISHED, //LOSE
+            VICTORY
         }
 
         BallManager ballManager;
+        [SerializeField] TextMeshPro txVictory;
+        [SerializeField] TextMeshProUGUI txLose;
+
         [SerializeField] PlayerInput inputActions;
         [SerializeField] GameObject player;
         [SerializeField] Transform pointA;
@@ -31,39 +37,28 @@ namespace Gavryk.Physics.Billiard
         [SerializeField] float timeOscilationTaco = 1f;
         [SerializeField] float timeGame = 0f;
         [SerializeField] float hitForce;
+
+
         //[SerializeField] float speedPercentage;
         //[SerializeField] float cronometerTotalTime;
         //[SerializeField] float cronometerPercentage;
         //float dir;
         //bool isTouch;
 
-        protected TacoFSM tacoState;
+        [SerializeField] protected TacoFSM tacoState;
+
+        protected float attemptingHitCronometer = 0f;
 
         #endregion LocalVariables & ENUM
 
         #region InputActions
         public void OnClickMouse(InputAction.CallbackContext value)
         {
+            Debug.Log("Clic derecho detectado");
             if (value.performed && tacoState == TacoFSM.WAITING_FOR_HIT)
             {
                 Debug.Log("Barra espaciadora presionada");
-                //if (Keyboard.current.spaceKey.wasPressedThisFrame) {
-                //    moveInput = value.ReadValue<Vector3>();
-                //    Debug.Log("Click" + value.ReadValue<Vector2>().ToString());
-                //    ConfirmHit(value);
-                //}
-                if (value.performed)
-                {
-                    tacoState = TacoFSM.GOING_TO_HIT;
-                    ConfirmHit();
-                }
-                Debug.Log("Clic derecho detectado");
-                if (Mouse.current.rightButton.wasPressedThisFrame)
-                {
-                    moveInput = value.ReadValue<Vector3>();
-                    Debug.Log("Click" + value.ReadValue<Vector2>().ToString());
-                    ConfirmHit();
-                }
+                ConfirmHit();
             }
         }
 
@@ -74,23 +69,38 @@ namespace Gavryk.Physics.Billiard
         {
             tacoState = TacoFSM.WAITING_FOR_HIT;
             player = GetComponent<GameObject>();
-            //button = GetComponent<PlayerInput>();
         }
         void Update()
         {
+            timeGame += Time.deltaTime;
             switch (tacoState)
             {
                 case TacoFSM.WAITING_FOR_HIT:
                     WaitingForHit();
                     break;
                 case TacoFSM.GOING_TO_HIT:
-                    GoingToHit();
-                    ConfirmHit();
-                    MovingTacoTowardBall();
+                    AttemptingToHitTheBall();
                     break;
                 case TacoFSM.FINISHED:
                     //None
                     break;
+            }
+            //Manejo general del tiempo para validar la condición de fracaso
+            if (timeGame >= 6f && tacoState != TacoFSM.VICTORY) //TODO: Validate victory
+            {
+                print("Loose the game");
+                tacoState = TacoFSM.FINISHED;
+                txLose.text = player.gameObject.name;
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.tag == "Ball")
+            {
+                tacoState = TacoFSM.VICTORY;
+                //TextMeshPros 
+                txVictory.text = player.gameObject.name;
             }
         }
 
@@ -102,9 +112,8 @@ namespace Gavryk.Physics.Billiard
         /// </summary>
         public void WaitingForHit()
         {
-            timeGame += Time.deltaTime;
             float porcentaje = Mathf.PingPong(timeGame, timeOscilationTaco) / timeOscilationTaco;
-            transform.position = Vector3.Lerp(pointA.position, pointB.position, porcentaje);
+            transform.localPosition = Vector3.Lerp(pointA.position, pointB.position, porcentaje);
 
             // intento Opcional recomendado en vez del PingPong
             /*//TODO: implementar eso que tengo en la foto de x (0,5) se regresa x (5,10) se iba 
@@ -129,12 +138,13 @@ namespace Gavryk.Physics.Billiard
         /// intento de limitar el mov. para detenerlo a los 6 sec
         /// activa el esatdo finito de quedarse quieto
         /// </summary>
-        public void GoingToHit()
+        public void AttemptingToHitTheBall()
         {
-            if (timeGame <= timeOscilationTaco)
+            attemptingHitCronometer += Time.deltaTime;
+            transform.position = Vector3.Lerp(PointC.position, PointD.position, attemptingHitCronometer / 1f);
+
+            if (attemptingHitCronometer > 1f)
             {
-                timeGame = 6f;
-                print("Loose the game");
                 tacoState = TacoFSM.FINISHED;
             }
         }
@@ -143,28 +153,11 @@ namespace Gavryk.Physics.Billiard
         /// </summary>
         public void ConfirmHit()
         {
-            Debug.Log("Me activo en Confirm Hit ?");
-            switch (tacoState)
-            {
-                case TacoFSM.GOING_TO_HIT:
-                    transform.position += Vector3.Lerp(PointC.position, PointD.position, timeGame / timeOscilationTaco);
-                    print("Haz ganado !");
-                    break;
-            }
+            Debug.Log("Me activó al Confirm Hit");
+            tacoState = TacoFSM.GOING_TO_HIT;
+            PointC.position = transform.position;
+            PointD.position = PointC.position + (Vector3.right * 8f);
         }
-        /// <summary>
-        /// mover taco hacia adelante del taco 
-        /// </summary>
-        public void MovingTacoTowardBall()
-        {
-
-            transform.position += Vector3.right * hitForce * Time.deltaTime;
-            if (transform.position.x > 15.0f)
-            {
-                tacoState = TacoFSM.FINISHED;
-            }
-        }
-
         #endregion ActionGame
     }
 }

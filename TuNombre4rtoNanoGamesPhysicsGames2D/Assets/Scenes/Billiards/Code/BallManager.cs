@@ -1,12 +1,15 @@
-namespace Gavryk.Physics.Billiard {
+namespace Gavryk.Physics.Billiard
+{
     using System.Drawing;
     using Unity.VisualScripting;
     using UnityEngine;
 
-    public class BallManager : MonoBehaviour {
+    public class BallManager : MonoBehaviour
+    {
 
         #region Enum & Variables
-        public enum BallFSM {
+        public enum BallFSM
+        {
             WAITING_FOR_HIT,
             HIT_AND_MOVING,
             FINISHED
@@ -27,12 +30,15 @@ namespace Gavryk.Physics.Billiard {
         #endregion Enum & Variables
 
         #region UnityMethods
-        void Start() {
+        void Start()
+        {
             ballPrefab = GetComponent<GameObject>();
             WaitingForHit();
         }
-        void Update() {
-            switch (ballState) {
+        void Update()
+        {
+            switch (ballState)
+            {
                 case BallFSM.WAITING_FOR_HIT:
                     WaitingForHit();
                     break;
@@ -47,36 +53,41 @@ namespace Gavryk.Physics.Billiard {
         #endregion UnityMethods
 
         #region BallInteraction
-        void WaitingForHit() {
+        void WaitingForHit()
+        {
             //spawnPos = Random.Range(1, 1 * spawnPoints.Length);
             //transform.position = spawnPoints[spawnPos].position;
             ballState = BallFSM.WAITING_FOR_HIT;
         }
-        public void MoveBallBillardForward() {
+        public void MoveBallBillardForward()
+        {
 
-            if (ballState == BallFSM.HIT_AND_MOVING) {
-                transform.position = Vector3.Lerp(transform.position, goToX.position, speedPercentage).normalized;
+            if (ballState == BallFSM.HIT_AND_MOVING)
+            {
+                transform.localPosition = Vector3.Lerp(transform.position, goToX.position, speedPercentage).normalized;
                 GetComponent<Rigidbody>().linearVelocity = Vector3.right * speedBall;
                 speedBall--;
                 speedBall = 0f;
                 ballState = BallFSM.FINISHED;
             }
-          /*  //cronometerTotalTime += Time.deltaTime;
-            //if (cronometerPercentage % (5f * 2f) < (5f)) {
-            //    dir = 1f;
-            //} else //if (cronometerPercentage % (5f * 2f) >= (5f))
-            //  {
-            //    dir = -1f;
-            //}
-            //cronometerPercentage += Time.deltaTime * dir;
-            //speedPercentage += (cronometerPercentage / 5f);*/
+            /*  //cronometerTotalTime += Time.deltaTime;
+              //if (cronometerPercentage % (5f * 2f) < (5f)) {
+              //    dir = 1f;
+              //} else //if (cronometerPercentage % (5f * 2f) >= (5f))
+              //  {
+              //    dir = -1f;
+              //}
+              //cronometerPercentage += Time.deltaTime * dir;
+              //speedPercentage += (cronometerPercentage / 5f);*/
         }
 
         #endregion BallInteraction
 
-        private void OnCollisionEnter(Collision collision) {
+        private void OnCollisionEnter(Collision collision)
+        {
             Debug.Log("me toco el taco");
-            if (collision.gameObject.CompareTag("Player") /*&& collision.gameObject.CompareTag("Ball") /*&& tacoIsTouchedMe==true*/) {
+            if (collision.gameObject.CompareTag("Player") /*&& collision.gameObject.CompareTag("Ball") /*&& tacoIsTouchedMe==true*/)
+            {
                 MoveBallBillardForward();
             }
         }
