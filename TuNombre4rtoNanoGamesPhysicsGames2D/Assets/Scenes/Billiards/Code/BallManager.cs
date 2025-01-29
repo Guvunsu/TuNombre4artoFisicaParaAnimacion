@@ -16,8 +16,8 @@ namespace Gavryk.Physics.Billiard {
         [SerializeField] Transform goToX;
         [SerializeField] float speedBall;
         [SerializeField] float speedPercentage;
-        //[SerializeField] float time = 5f;
-        // [SerializeField] float tiempoTranscurrido = 0f;
+        //[SerializeField] float timeOscilationTaco = 5f;
+        // [SerializeField] float timeGame = 0f;
         int spawnPos;
         //float cronometerPercentage;
         //float cronometerTotalTime;
