@@ -1,5 +1,4 @@
-namespace Gavryk.Physics.Billiard
-{
+namespace Gavryk.Physics.Billiard {
     using NUnit.Framework.Internal.Commands;
     using TMPro;
     using UnityEngine;
@@ -9,13 +8,11 @@ namespace Gavryk.Physics.Billiard
 
     // se me olvidara si no escribo esto 
     // ponerle el iskinematic en una linea 
-    public class BilliardController : MonoBehaviour
-    {
+    public class BilliardController : MonoBehaviour {
 
         #region LocalVariables & ENUM
         // es recomendable hacer un script de FSM y heredar su info aqui ya que por estrucutra de scripts ya hace 2 cosas este script, solo 1 tarea por script
-        public enum TacoFSM
-        {
+        public enum TacoFSM {
             WAITING_FOR_HIT,
             GOING_TO_HIT,
             FINISHED, //LOSE
@@ -23,8 +20,8 @@ namespace Gavryk.Physics.Billiard
         }
 
         BallManager ballManager;
-        [SerializeField] TextMeshPro txVictory;
-        [SerializeField] TextMeshProUGUI txLose;
+        [SerializeField] GameObject vicotoryPanel;
+        [SerializeField] GameObject losePanel;
 
         [SerializeField] PlayerInput inputActions;
         [SerializeField] GameObject player;
@@ -38,13 +35,6 @@ namespace Gavryk.Physics.Billiard
         [SerializeField] float timeGame = 0f;
         [SerializeField] float hitForce;
 
-
-        //[SerializeField] float speedPercentage;
-        //[SerializeField] float cronometerTotalTime;
-        //[SerializeField] float cronometerPercentage;
-        //float dir;
-        //bool isTouch;
-
         [SerializeField] protected TacoFSM tacoState;
 
         protected float attemptingHitCronometer = 0f;
@@ -52,11 +42,9 @@ namespace Gavryk.Physics.Billiard
         #endregion LocalVariables & ENUM
 
         #region InputActions
-        public void OnClickMouse(InputAction.CallbackContext value)
-        {
+        public void OnClickMouse(InputAction.CallbackContext value) {
             Debug.Log("Clic derecho detectado");
-            if (value.performed && tacoState == TacoFSM.WAITING_FOR_HIT)
-            {
+            if (value.performed && tacoState == TacoFSM.WAITING_FOR_HIT) {
                 Debug.Log("Barra espaciadora presionada");
                 ConfirmHit();
             }
@@ -65,16 +53,13 @@ namespace Gavryk.Physics.Billiard
         #endregion InputActions
 
         #region UnityMethods
-        void Start()
-        {
+        void Start() {
             tacoState = TacoFSM.WAITING_FOR_HIT;
             player = GetComponent<GameObject>();
         }
-        void Update()
-        {
+        void Update() {
             timeGame += Time.deltaTime;
-            switch (tacoState)
-            {
+            switch (tacoState) {
                 case TacoFSM.WAITING_FOR_HIT:
                     WaitingForHit();
                     break;
@@ -90,17 +75,14 @@ namespace Gavryk.Physics.Billiard
             {
                 print("Loose the game");
                 tacoState = TacoFSM.FINISHED;
-                txLose.text = player.gameObject.name;
+                losePanel.SetActive(true);
             }
         }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.tag == "Ball")
-            {
+        private void OnTriggerEnter(Collider other) {
+            if (other.gameObject.tag == "Ball") {
                 tacoState = TacoFSM.VICTORY;
                 //TextMeshPros 
-                txVictory.text = player.gameObject.name;
+                vicotoryPanel.SetActive(true);
             }
         }
 
@@ -110,8 +92,7 @@ namespace Gavryk.Physics.Billiard
         /// <summary>
         /// Movimiento del taco de billar 
         /// </summary>
-        public void WaitingForHit()
-        {
+        public void WaitingForHit() {
             float porcentaje = Mathf.PingPong(timeGame, timeOscilationTaco) / timeOscilationTaco;
             transform.localPosition = Vector3.Lerp(pointA.position, pointB.position, porcentaje);
 
@@ -138,21 +119,18 @@ namespace Gavryk.Physics.Billiard
         /// intento de limitar el mov. para detenerlo a los 6 sec
         /// activa el esatdo finito de quedarse quieto
         /// </summary>
-        public void AttemptingToHitTheBall()
-        {
+        public void AttemptingToHitTheBall() {
             attemptingHitCronometer += Time.deltaTime;
             transform.position = Vector3.Lerp(PointC.position, PointD.position, attemptingHitCronometer / 1f);
 
-            if (attemptingHitCronometer > 1f)
-            {
+            if (attemptingHitCronometer > 1f) {
                 tacoState = TacoFSM.FINISHED;
             }
         }
         /// <summary>
         /// intento de mover con 2 puntos de referewncia del taco 
         /// </summary>
-        public void ConfirmHit()
-        {
+        public void ConfirmHit() {
             Debug.Log("Me activó al Confirm Hit");
             tacoState = TacoFSM.GOING_TO_HIT;
             PointC.position = transform.position;
