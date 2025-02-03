@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 
 public class Timer : MonoBehaviour {
+
     [SerializeField, HideInInspector] bool timerActive;
     [SerializeField] float timer;
     [SerializeField] TMP_Text timeTxt;
@@ -19,9 +20,6 @@ public class Timer : MonoBehaviour {
             timeTxt.text = timer.ToString("F2");
         } else if (timerActive == false) {
             timer = 6.66f;
-        }
-        {
-
         }
     }
 }

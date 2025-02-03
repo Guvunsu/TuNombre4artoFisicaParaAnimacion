@@ -71,7 +71,7 @@ namespace Gavryk.Physics.Billiard {
                     break;
             }
             //Manejo general del tiempo para validar la condición de fracaso
-            if (timeGame >= 6f && tacoState != TacoFSM.VICTORY) //TODO: Validate victory
+            if (timeGame >= 6.66f && tacoState != TacoFSM.VICTORY) //TODO: Validate victory
             {
                 print("Loose the game");
                 tacoState = TacoFSM.FINISHED;
