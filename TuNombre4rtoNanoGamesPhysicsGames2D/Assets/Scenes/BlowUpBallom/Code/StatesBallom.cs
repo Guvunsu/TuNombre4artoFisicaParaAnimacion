@@ -1,16 +1,39 @@
 using UnityEngine;
 
-public class StatesBallom : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+public class StatesBallom : MonoBehaviour {
+    #region ENUM
+    public enum States {
+        NORMAL_STATE,
+        INFLATING_BALLOM,
+        KABOOM
+    }
+    #endregion ENUM
+
+    #region variables
+
+    [SerializeField] States _currentBallomState;
+    public InputPlayerBlowUpBallom inputPlayer;
+
+    #endregion variables
+    void Start() {
+
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+    private void FixedUpdate() {
+        switch (_currentBallomState) {
+            case States.NORMAL_STATE:
+                //
+                break;
+            case States.INFLATING_BALLOM:
+                //
+                break;
+            case States.KABOOM:
+                //
+                break;
+        }
+    }
+
+    void Update() {
+
     }
 }
