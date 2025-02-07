@@ -87,13 +87,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MouseRightAAction",
-                    "type": "Button",
-                    "id": "3b0b38b7-045a-4ac8-b9ef-9fc93c849538",
+                    "name": "OnClickMouseLeft",
+                    "type": "Value",
+                    "id": "790f72a6-e7d9-4b63-98d2-b2b63e7290b3",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "Press",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -341,6 +341,39 @@
                 },
                 {
                     "name": "",
+                    "id": "ae30bd94-2f6d-4e6f-963d-047670e80a8b",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cc5c486e-6fd3-48ff-ad58-c07ae11e1996",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "10797cd2-8a41-47ce-85a3-9813a83da6ae",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "cbac6039-9c09-46a1-b5f2-4e5124ccb5ed",
                     "path": "<Keyboard>/2",
                     "interactions": "",
@@ -495,12 +528,12 @@
                 },
                 {
                     "name": "",
-                    "id": "4d24259a-e9da-47c9-aaa5-5f13979204e2",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
+                    "id": "3b297426-3732-4890-a2ea-88251aae5a57",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "Press",
                     "processors": "",
-                    "groups": ";Keyboard&Mouse;Gamepad",
-                    "action": "MouseRightAAction",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "OnClickMouseLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
