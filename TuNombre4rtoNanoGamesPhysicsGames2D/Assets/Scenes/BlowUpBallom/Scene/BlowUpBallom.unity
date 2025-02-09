@@ -444,6 +444,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade7b431f4ee4fa498422135d314865d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentBallomState: 0
+  player: {fileID: 268598749}
+  timer: {fileID: 0}
 --- !u!114 &268598749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,14 +461,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerBlowUpBallom: {fileID: 654799368}
   statesBallomPlayer: {fileID: 268598748}
-  _currentBallomState: 0
   playerInput: {fileID: 268598747}
+  _currentBallomState: 0
   ballom: {fileID: 268598742}
+  maxVolume: {fileID: 1829600052}
   panelWin: {fileID: 2041290485}
   panelLose: {fileID: 1505568667}
-  maxVolume: {fileID: 1829600052}
   speed: 10
-  pressCount: 0
+  scaleIncrement: 1
+  pressCount: 1
   maxPress: 12
 --- !u!1 &654799367
 GameObject:
@@ -496,9 +500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2df21965f01eee4abae26d771fe02c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timerActiveBlowUpBallom: 0
-  timerBlowUpBallom: 0
   timeTxtBlowUpBallom: {fileID: 1571708082}
+  timerBlowUpBallom: 0
 --- !u!4 &654799369
 Transform:
   m_ObjectHideFlags: 0

@@ -1,35 +1,37 @@
+using Gavryk.Physics.Ballom;
 using UnityEngine;
 
 #region ENUM
-public enum States
-{
+public enum States {
     NORMAL_STATE,
     INFLATING_BALLOM,
     KABOOM
 }
 #endregion ENUM
-
-public class StatesBallom : MonoBehaviour
-{
-
-    
-
+public class StatesBallom : MonoBehaviour {
     #region variables
-
-
+    [SerializeField] States _currentBallomState;
+    [SerializeField] InputPlayerBlowUpBallom player;
+    [SerializeField] TimerBlowUpBallom timer;
     #endregion variables
-    void Start()
-    {
-
+    void Awake() {
+        timer = FindObjectOfType<TimerBlowUpBallom>();
     }
-
-    private void FixedUpdate()
-    {
-
+    void Start() {
+        _currentBallomState = States.NORMAL_STATE;
     }
-
-    void Update()
-    {
-
+    private void FixedUpdate() {
+        switch (_currentBallomState) {
+            case States.NORMAL_STATE:
+                break;
+            case States.INFLATING_BALLOM:
+                if (timer.TimerExpired()) {
+                    player.LosePanel();
+                }
+                break;
+            case States.KABOOM:
+                player.VictoryPanel();
+                break;
+        }
     }
 }
