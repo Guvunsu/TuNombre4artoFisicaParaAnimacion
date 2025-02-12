@@ -22,7 +22,7 @@ public class TimerBlowUpBallom : MonoBehaviour {
         }
     }
     public bool TimerExpired() {
-        return timerBlowUpBallom == maxTime;
+        return timerBlowUpBallom >= maxTime;
     }
 }
 

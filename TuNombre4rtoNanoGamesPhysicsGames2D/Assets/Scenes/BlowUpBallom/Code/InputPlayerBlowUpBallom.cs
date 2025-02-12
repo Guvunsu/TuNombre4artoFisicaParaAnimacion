@@ -11,7 +11,7 @@ namespace Gavryk.Physics.Ballom {
         [SerializeField] protected StatesBallom statesBallomPlayer;
 
         [SerializeField] PlayerInput playerInput;
-        [SerializeField] States _currentBallomState;
+        [SerializeField] States _currentBalloonState;
 
         [SerializeField] GameObject ballom;
         [SerializeField] Transform maxVolume;
@@ -35,18 +35,18 @@ namespace Gavryk.Physics.Ballom {
             timerBlowUpBallom = FindAnyObjectByType<TimerBlowUpBallom>();
         }
         void Start() {
-            _currentBallomState = States.NORMAL_STATE;
+            //_currentBalloonState = States.NORMAL_STATE;
             isGameActive = true;
             initialScale = ballom.transform.localScale;
             maxScale = maxVolume.localScale;
         }
         void FixedUpdate() {
-            switch (_currentBallomState) {
-                case States.NORMAL_STATE:
-                    // rigidbody but i cant do it in this class
-                    break;
+            switch (_currentBalloonState) {
+                //case States.NORMAL_STATE:
+                //    // rigidbody but i cant do it in this class
+                //    break;
                 case States.INFLATING_BALLOM:
-                    IncrementSizeBallom();
+                    //IncrementSizeBallom();
                     break;
                 case States.KABOOM:
                     VictoryPanel();
@@ -90,6 +90,7 @@ namespace Gavryk.Physics.Ballom {
             if (pressCount == maxPress) {
                 Destroy(ballom);
                 VictoryPanel();
+                statesBallomPlayer.KaboomBalloon();
             } else if (pressCount <= maxPress - 1) {
                 if (timerBlowUpBallom.TimerExpired()) {
                     isGameActive = false;
