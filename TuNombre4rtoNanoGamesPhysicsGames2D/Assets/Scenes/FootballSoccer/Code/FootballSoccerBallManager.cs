@@ -33,7 +33,7 @@ namespace Gavryk.Physics.Football
         protected Vector3 nodePosition;
         protected Vector3 movForward;
 
-        [Range(0f, 1f), SerializeField] protected float percentage; //Lerp()
+        [Range(0f, 1f), SerializeField] protected float cronometer; //Lerp()
         [SerializeField] float speedBall;
         [SerializeField] float time;
         bool isGameActive = true;
@@ -46,6 +46,7 @@ namespace Gavryk.Physics.Football
         void Start()
         {
             footballBall = GetComponent<GameObject>();
+            Invoke("ShootTheBall", 3f);
         }
 
         // Update is called once per frame
@@ -78,21 +79,26 @@ namespace Gavryk.Physics.Football
 
         public void TransitionForwardBall()
         {
-            movForward = transform.localPosition = Vector3.Lerp(transform.position, PointB.position, percentage).normalized;
-            GetComponent<Rigidbody>().linearVelocity = Vector3.right * speedBall;
+            //movForward = transform.localPosition = Vector3.Lerp(transform.position, PointB.position, percentage).normalized;
+            //GetComponent<Rigidbody>().linearVelocity = Vector3.right * speedBall;
             SineTransitionBall();
         }
-
+        public void ShootTheBall()
+        {
+            if (isGameActive) {
+                fsmBall = FootBall_FSM.TRANSITION_BALL;
+            }
+        }
         public void SineTransitionBall()
         {
             nodePosition = footballBall.transform.localPosition;
-            nodePosition.x = percentage; //nodePosition's original X coordinate
+            cronometer += Time.fixedDeltaTime;
+            nodePosition.x = cronometer; //nodePosition's original X coordinate
             nodePosition.y =
                 soSP.sineParameters.A *
-                Mathf.Sin(soSP.sineParameters.B * percentage + soSP.sineParameters.C) +
+                Mathf.Sin(soSP.sineParameters.B * nodePosition.x / soSP.sineParameters.horizontalScale + soSP.sineParameters.C) +
                 soSP.sineParameters.D
                 ; //A * sen(B * percentage + C) + D 
-            nodePosition.x *= soSP.sineParameters.horizontalScale;
             footballBall.transform.localPosition = nodePosition;
         }
 
@@ -114,17 +120,17 @@ namespace Gavryk.Physics.Football
 
         public void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("RedPorteria"))
+            if (other.gameObject.CompareTag("Humans"))
             {
                 panelWin.SetActive(true);
                 VictoryPanel();
             }
             else if (other.gameObject.CompareTag("PostePorteria"))
             {
-                panelLose.SetActive(true);
-                LosePanel();
+                panelWin.SetActive(true);
+                VictoryPanel();
             }
-            else if (other.gameObject.CompareTag("Humans"))
+            else if (other.gameObject.CompareTag("RedPorteria"))
             {
                 panelLose.SetActive(true);
                 LosePanel();
