@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Ball
+  - RedPorteria
+  - PostePorteria
+  - Humans
   layers:
   - Default
   - TransparentFX

@@ -26,7 +26,7 @@ namespace Gavryk.Physics.Billiard
     ""name"": ""IA_Blliards"",
     ""maps"": [
         {
-            ""name"": ""Billiards"",
+            ""name"": ""ControlMaster"",
             ""id"": ""03067473-00a3-4140-baff-4db54bb2d23b"",
             ""actions"": [
                 {
@@ -46,6 +46,15 @@ namespace Gavryk.Physics.Billiard
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Movement"",
+                    ""type"": ""Button"",
+                    ""id"": ""2feee535-b1e8-4d6c-8774-10025b3535e1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,28 @@ namespace Gavryk.Physics.Billiard
                     ""processors"": """",
                     ""groups"": "";Control"",
                     ""action"": ""Keyboard SpaceBar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3fe87903-59db-42a1-97af-6c47e866db06"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Movement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d40f480e-f9ae-4260-b13e-d3ab088ebcb5"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": "";Control"",
+                    ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -98,15 +129,16 @@ namespace Gavryk.Physics.Billiard
         }
     ]
 }");
-            // Billiards
-            m_Billiards = asset.FindActionMap("Billiards", throwIfNotFound: true);
-            m_Billiards_MouseClickRight = m_Billiards.FindAction("Mouse ClickRight", throwIfNotFound: true);
-            m_Billiards_KeyboardSpaceBar = m_Billiards.FindAction("Keyboard SpaceBar", throwIfNotFound: true);
+            // ControlMaster
+            m_ControlMaster = asset.FindActionMap("ControlMaster", throwIfNotFound: true);
+            m_ControlMaster_MouseClickRight = m_ControlMaster.FindAction("Mouse ClickRight", throwIfNotFound: true);
+            m_ControlMaster_KeyboardSpaceBar = m_ControlMaster.FindAction("Keyboard SpaceBar", throwIfNotFound: true);
+            m_ControlMaster_Movement = m_ControlMaster.FindAction("Movement", throwIfNotFound: true);
         }
 
         ~@IA_Blliards()
         {
-            UnityEngine.Debug.Assert(!m_Billiards.enabled, "This will cause a leak and performance issues, IA_Blliards.Billiards.Disable() has not been called.");
+            UnityEngine.Debug.Assert(!m_ControlMaster.enabled, "This will cause a leak and performance issues, IA_Blliards.ControlMaster.Disable() has not been called.");
         }
 
         public void Dispose()
@@ -165,35 +197,40 @@ namespace Gavryk.Physics.Billiard
             return asset.FindBinding(bindingMask, out action);
         }
 
-        // Billiards
-        private readonly InputActionMap m_Billiards;
-        private List<IBilliardsActions> m_BilliardsActionsCallbackInterfaces = new List<IBilliardsActions>();
-        private readonly InputAction m_Billiards_MouseClickRight;
-        private readonly InputAction m_Billiards_KeyboardSpaceBar;
-        public struct BilliardsActions
+        // ControlMaster
+        private readonly InputActionMap m_ControlMaster;
+        private List<IControlMasterActions> m_ControlMasterActionsCallbackInterfaces = new List<IControlMasterActions>();
+        private readonly InputAction m_ControlMaster_MouseClickRight;
+        private readonly InputAction m_ControlMaster_KeyboardSpaceBar;
+        private readonly InputAction m_ControlMaster_Movement;
+        public struct ControlMasterActions
         {
             private @IA_Blliards m_Wrapper;
-            public BilliardsActions(@IA_Blliards wrapper) { m_Wrapper = wrapper; }
-            public InputAction @MouseClickRight => m_Wrapper.m_Billiards_MouseClickRight;
-            public InputAction @KeyboardSpaceBar => m_Wrapper.m_Billiards_KeyboardSpaceBar;
-            public InputActionMap Get() { return m_Wrapper.m_Billiards; }
+            public ControlMasterActions(@IA_Blliards wrapper) { m_Wrapper = wrapper; }
+            public InputAction @MouseClickRight => m_Wrapper.m_ControlMaster_MouseClickRight;
+            public InputAction @KeyboardSpaceBar => m_Wrapper.m_ControlMaster_KeyboardSpaceBar;
+            public InputAction @Movement => m_Wrapper.m_ControlMaster_Movement;
+            public InputActionMap Get() { return m_Wrapper.m_ControlMaster; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
             public bool enabled => Get().enabled;
-            public static implicit operator InputActionMap(BilliardsActions set) { return set.Get(); }
-            public void AddCallbacks(IBilliardsActions instance)
+            public static implicit operator InputActionMap(ControlMasterActions set) { return set.Get(); }
+            public void AddCallbacks(IControlMasterActions instance)
             {
-                if (instance == null || m_Wrapper.m_BilliardsActionsCallbackInterfaces.Contains(instance)) return;
-                m_Wrapper.m_BilliardsActionsCallbackInterfaces.Add(instance);
+                if (instance == null || m_Wrapper.m_ControlMasterActionsCallbackInterfaces.Contains(instance)) return;
+                m_Wrapper.m_ControlMasterActionsCallbackInterfaces.Add(instance);
                 @MouseClickRight.started += instance.OnMouseClickRight;
                 @MouseClickRight.performed += instance.OnMouseClickRight;
                 @MouseClickRight.canceled += instance.OnMouseClickRight;
                 @KeyboardSpaceBar.started += instance.OnKeyboardSpaceBar;
                 @KeyboardSpaceBar.performed += instance.OnKeyboardSpaceBar;
                 @KeyboardSpaceBar.canceled += instance.OnKeyboardSpaceBar;
+                @Movement.started += instance.OnMovement;
+                @Movement.performed += instance.OnMovement;
+                @Movement.canceled += instance.OnMovement;
             }
 
-            private void UnregisterCallbacks(IBilliardsActions instance)
+            private void UnregisterCallbacks(IControlMasterActions instance)
             {
                 @MouseClickRight.started -= instance.OnMouseClickRight;
                 @MouseClickRight.performed -= instance.OnMouseClickRight;
@@ -201,23 +238,26 @@ namespace Gavryk.Physics.Billiard
                 @KeyboardSpaceBar.started -= instance.OnKeyboardSpaceBar;
                 @KeyboardSpaceBar.performed -= instance.OnKeyboardSpaceBar;
                 @KeyboardSpaceBar.canceled -= instance.OnKeyboardSpaceBar;
+                @Movement.started -= instance.OnMovement;
+                @Movement.performed -= instance.OnMovement;
+                @Movement.canceled -= instance.OnMovement;
             }
 
-            public void RemoveCallbacks(IBilliardsActions instance)
+            public void RemoveCallbacks(IControlMasterActions instance)
             {
-                if (m_Wrapper.m_BilliardsActionsCallbackInterfaces.Remove(instance))
+                if (m_Wrapper.m_ControlMasterActionsCallbackInterfaces.Remove(instance))
                     UnregisterCallbacks(instance);
             }
 
-            public void SetCallbacks(IBilliardsActions instance)
+            public void SetCallbacks(IControlMasterActions instance)
             {
-                foreach (var item in m_Wrapper.m_BilliardsActionsCallbackInterfaces)
+                foreach (var item in m_Wrapper.m_ControlMasterActionsCallbackInterfaces)
                     UnregisterCallbacks(item);
-                m_Wrapper.m_BilliardsActionsCallbackInterfaces.Clear();
+                m_Wrapper.m_ControlMasterActionsCallbackInterfaces.Clear();
                 AddCallbacks(instance);
             }
         }
-        public BilliardsActions @Billiards => new BilliardsActions(this);
+        public ControlMasterActions @ControlMaster => new ControlMasterActions(this);
         private int m_ControlSchemeIndex = -1;
         public InputControlScheme ControlScheme
         {
@@ -236,10 +276,11 @@ namespace Gavryk.Physics.Billiard
                 return asset.controlSchemes[m_NewControlSchemeSchemeIndex];
             }
         }
-        public interface IBilliardsActions
+        public interface IControlMasterActions
         {
             void OnMouseClickRight(InputAction.CallbackContext context);
             void OnKeyboardSpaceBar(InputAction.CallbackContext context);
+            void OnMovement(InputAction.CallbackContext context);
         }
     }
 }

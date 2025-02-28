@@ -2,7 +2,7 @@
     "name": "IA_Blliards",
     "maps": [
         {
-            "name": "Billiards",
+            "name": "ControlMaster",
             "id": "03067473-00a3-4140-baff-4db54bb2d23b",
             "actions": [
                 {
@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "Press",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Movement",
+                    "type": "Button",
+                    "id": "2feee535-b1e8-4d6c-8774-10025b3535e1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -44,6 +53,28 @@
                     "processors": "",
                     "groups": ";Control",
                     "action": "Keyboard SpaceBar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3fe87903-59db-42a1-97af-6c47e866db06",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d40f480e-f9ae-4260-b13e-d3ab088ebcb5",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": ";Control",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
