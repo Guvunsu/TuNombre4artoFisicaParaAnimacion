@@ -2,57 +2,52 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace Gavryk.Physics.Football
-{
-    public class FootballSoccerInputBarrerHumanPlayer : MonoBehaviour
-    {
+namespace Gavryk.Physics.Football {
+    public class FootballSoccerInputBarrerHumanPlayer : MonoBehaviour {
         #region ENUM
-        public enum Player_StateMechanics
-        {
+        public enum Player_StateMechanics {
             IDLE,
             MOVE,
             STOP
         }
-        public enum States
-        {
-            MOVING,
-            STOPING
-        }
+        //public enum States
+        //{
+        //    MOVING,
+        //    STOPING
+        //}
 
         #endregion ENUM 
 
         #region Variables
 
         protected Player_StateMechanics playerFSM;
-        protected States state;
+        //protected States state;
 
         public Vector3 movPlayer;
 
         [SerializeField] PlayerInput inputActions;
-        [SerializeField] GameObject barrerHuman;
         [SerializeField] Transform PointBarrerHumanA;
         [SerializeField] Transform PointBarrerHumanB;
+        //[SerializeField] GameObject barrerHuman;
 
-        [SerializeField, HideInInspector] float speedMovement;
+        [SerializeField, HideInInspector] float speedMovement = 10f;
 
 
         #endregion Variables
 
         #region PublicUnityMethods
-        void Start()
-        {
-            barrerHuman.GetComponent<GameObject>();
+        void Start() {
+            //barrerHuman.GetComponent<GameObject>();
             playerFSM = Player_StateMechanics.IDLE;
         }
-
-        // Update is called once per frame
-        void Update()
-        {
-            switch (playerFSM)
-            {
+        void Update() {
+            switch (playerFSM) {
                 case Player_StateMechanics.IDLE:
                     break;
                 case Player_StateMechanics.MOVE:
+                    Vector3 newPosition = transform.position + new Vector3(movPlayer.x, 0, 0) * speedMovement * Time.deltaTime;
+                    newPosition.x = Mathf.Clamp(newPosition.x, PointBarrerHumanA.position.x, PointBarrerHumanB.position.x);
+                    transform.position = newPosition;
                     break;
                 case Player_StateMechanics.STOP:
                     break;
@@ -62,19 +57,16 @@ namespace Gavryk.Physics.Football
 
         #region PublicMethods
 
-        public void MovePlayer(InputAction.CallbackContext value)
-        {
-            if (value.performed)
-            {
+        public void MovePlayer(InputAction.CallbackContext value) {
+            if (value.performed) {
                 movPlayer = value.ReadValue<Vector3>();
-                state = States.MOVING;
+                playerFSM = Player_StateMechanics.MOVE;
                 // transform.localPosition = new Vector3((float)PointBarrerHumanA.position, PointBarrerHumanB.position, porcentaje);
                 speedMovement = 10f;
-            }
-            else if (value.canceled)
-            {
-                state = States.STOPING;
-                speedMovement = 0f;
+            } else if (value.canceled) {
+                playerFSM = Player_StateMechanics.STOP;
+                //speedMovement = 0f;
+                movPlayer = Vector3.zero;
             }
         }
 
