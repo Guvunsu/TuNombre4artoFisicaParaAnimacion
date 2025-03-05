@@ -13,7 +13,7 @@ namespace Gavryk.Physics.Football
         //D: Vertical displacement
     }
 
-    [CreateAssetMenu(fileName = "SineParameters_SO", menuName = "Scriptable Objects/SineParameters_SO")]
+    [CreateAssetMenu(fileName = "SineParameters_SO", menuName = "Scriptable Objects/SineParametersFootball_SO")]
     public class SineParameters : ScriptableObject
     {
         [SerializeField] public SineParametersFootball sineParameters;
