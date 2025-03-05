@@ -19,6 +19,7 @@ namespace Gavryk.Physics.Football {
         #endregion ENUM 
 
         #region Variables
+        // public FootballSoccerBallManager footballSoccerBallManager;
 
         protected Player_StateMechanics playerFSM;
         //protected States state;
@@ -61,6 +62,7 @@ namespace Gavryk.Physics.Football {
             if (value.performed) {
                 movPlayer = value.ReadValue<Vector3>();
                 playerFSM = Player_StateMechanics.MOVE;
+                //footballSoccerBallManager.TransitionForwardBall(); a ver si lo hago que lo haga el jugador
                 // transform.localPosition = new Vector3((float)PointBarrerHumanA.position, PointBarrerHumanB.position, porcentaje);
                 speedMovement = 10f;
             } else if (value.canceled) {

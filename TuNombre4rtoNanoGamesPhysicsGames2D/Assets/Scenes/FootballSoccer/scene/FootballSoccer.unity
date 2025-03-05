@@ -1001,14 +1001,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soSP: {fileID: 0}
-  footballBall: {fileID: 1163564398}
   panelWin: {fileID: 1511822468}
   panelLose: {fileID: 331076090}
   PointA: {fileID: 1359201817}
   PointB: {fileID: 1069317805}
-  percentage: 0.5
-  speedBall: 10
-  time: 6
+  cronometer: 0
 --- !u!1 &363772488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1798,13 +1795,14 @@ MonoBehaviour:
     m_ActionName: 'Billiards/Keyboard SpaceBar[/Keyboard/space]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 8649640c13f6e564caf2daec410ab45d, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
+      - m_Target: {fileID: 709410753}
+        m_TargetAssemblyTypeName: Gavryk.Physics.Football.FootballSoccerInputBarrerHumanPlayer,
+          Assembly-CSharp
+        m_MethodName: MovePlayer
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -1829,9 +1827,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8649640c13f6e564caf2daec410ab45d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movPlayer: {x: 0, y: 0, z: 0}
+  movPlayer: {x: 0, y: 0, z: 10}
   inputActions: {fileID: 709410752}
-  barrerHuman: {fileID: 377940804}
   PointBarrerHumanA: {fileID: 853933269}
   PointBarrerHumanB: {fileID: 1330813347}
   speedMovement: 5

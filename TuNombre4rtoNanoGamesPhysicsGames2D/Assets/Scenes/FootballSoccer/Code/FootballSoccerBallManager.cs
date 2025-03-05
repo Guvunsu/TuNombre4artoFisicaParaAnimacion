@@ -31,9 +31,9 @@ namespace Gavryk.Physics.Football {
         //protected Vector3 movForward;
 
         [Range(0f, 1f), SerializeField] protected float cronometer; //Lerp()
+        bool isGameActive = true;
         //[SerializeField] float speedBall;
         //[SerializeField] float time;
-        bool isGameActive = true;
 
         protected FootBall_FSM fsmBall;
 
@@ -76,15 +76,17 @@ namespace Gavryk.Physics.Football {
         public void ShootTheBall() {
             if (isGameActive) {
                 fsmBall = FootBall_FSM.TRANSITION_BALL;
-                cronometer = 0f;
+                cronometer = 1f;
             }
         }
         public void SineTransitionBall() {
             //nodePosition = footballBall.transform.localPosition;
             cronometer += Time.fixedDeltaTime;
+            ShootTheBall();
             //nodePosition.x = cronometer; //nodePosition's original X coordinate
             nodePosition.x = Mathf.Lerp(PointA.position.x, PointB.position.x, cronometer);
-            nodePosition.y = soSP.sineParameters.A * Mathf.Sin(soSP.sineParameters.B * nodePosition.x / soSP.sineParameters.horizontalScale + soSP.sineParameters.C) + soSP.sineParameters.D
+            nodePosition.y = soSP.sineParameters.A * Mathf.Sin(soSP.sineParameters.B * nodePosition.x / 
+                soSP.sineParameters.horizontalScale + soSP.sineParameters.C) + soSP.sineParameters.D
                 ; //A * sen(B * percentage + C) + D 
                   // footballBall.transform.localPosition = nodePosition;
             transform.position = nodePosition;
