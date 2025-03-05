@@ -25,12 +25,12 @@
                 },
                 {
                     "name": "Movement",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "2feee535-b1e8-4d6c-8774-10025b3535e1",
-                    "expectedControlType": "",
+                    "expectedControlType": "Axis",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -57,26 +57,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "3fe87903-59db-42a1-97af-6c47e866db06",
+                    "name": "1D Axis",
+                    "id": "3cfc70f8-6a7e-4f13-a69a-ca3a72355a16",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Movement",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "27d31f97-0d45-482d-81ba-5ceda82e5a4a",
                     "path": "<Keyboard>/leftArrow",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Movement",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "d40f480e-f9ae-4260-b13e-d3ab088ebcb5",
+                    "name": "positive",
+                    "id": "fef2b859-62a2-4f3a-8a3d-c4fa0fba1763",
                     "path": "<Keyboard>/rightArrow",
-                    "interactions": "Press",
+                    "interactions": "",
                     "processors": "",
-                    "groups": ";Control",
+                    "groups": "",
                     "action": "Movement",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 }
             ]
         }

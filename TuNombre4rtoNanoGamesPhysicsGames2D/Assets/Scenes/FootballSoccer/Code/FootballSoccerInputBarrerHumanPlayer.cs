@@ -25,6 +25,7 @@ namespace Gavryk.Physics.Football {
         //protected States state;
 
         public Vector3 movPlayer;
+        protected float movAxis;
 
         [SerializeField] PlayerInput inputActions;
         [SerializeField] Transform PointBarrerHumanA;
@@ -46,8 +47,8 @@ namespace Gavryk.Physics.Football {
                 case Player_StateMechanics.IDLE:
                     break;
                 case Player_StateMechanics.MOVE:
-                    Vector3 newPosition = transform.position + new Vector3(movPlayer.x, 0, 0) * speedMovement * Time.deltaTime;
-                    newPosition.x = Mathf.Clamp(newPosition.x, PointBarrerHumanA.position.x, PointBarrerHumanB.position.x);
+                    Vector3 newPosition = transform.position + new Vector3(0, 0, movPlayer.z) * speedMovement * Time.deltaTime;
+                    newPosition.z = Mathf.Clamp(newPosition.z, PointBarrerHumanA.position.z, PointBarrerHumanB.position.z);
                     transform.position = newPosition;
                     break;
                 case Player_StateMechanics.STOP:
@@ -59,8 +60,10 @@ namespace Gavryk.Physics.Football {
         #region PublicMethods
 
         public void MovePlayer(InputAction.CallbackContext value) {
+            Debug.Log("Hola");
             if (value.performed) {
-                movPlayer = value.ReadValue<Vector3>();
+                movAxis = value.ReadValue<float>();
+                movPlayer = Vector3.forward * movAxis;
                 playerFSM = Player_StateMechanics.MOVE;
                 //footballSoccerBallManager.TransitionForwardBall(); a ver si lo hago que lo haga el jugador
                 // transform.localPosition = new Vector3((float)PointBarrerHumanA.position, PointBarrerHumanB.position, porcentaje);
