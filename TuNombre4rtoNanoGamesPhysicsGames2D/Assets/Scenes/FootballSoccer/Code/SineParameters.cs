@@ -18,5 +18,6 @@ namespace Gavryk.Physics.Football
     {
         [SerializeField] public SineParametersFootball sineParameters;
     }
+
 }
 
