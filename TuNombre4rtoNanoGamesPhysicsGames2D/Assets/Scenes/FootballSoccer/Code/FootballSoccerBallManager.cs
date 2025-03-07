@@ -4,14 +4,7 @@ namespace Gavryk.Physics.Football
 {
     public class FootballSoccerBallManager : MonoBehaviour
     {
-
         #region ENUM
-        //public enum StateMechanics
-        //{
-        //    DEFAULT,
-        //    MOVE,
-        //    STOP
-        //}
         public enum FootBall_FSM
         {
             START_POSE,
@@ -42,14 +35,18 @@ namespace Gavryk.Physics.Football
         #region PublicUnityMethods
         void Start()
         {
-            Invoke("ShootTheBall", 3f);
+            soSP.sineParameters.A = Random.Range(-6.6f, 6.6f);
+            soSP.sineParameters.B = Random.Range(0.25f, 1.5f);
+            soSP.sineParameters.C = Random.Range(-6.6f, 6.6f);
+            soSP.sineParameters.D = Random.Range(-6.6f, 6.6f);
+            soSP.sineParameters.horizontalScale = Random.Range(-6.6f, 6.6f);
+            Invoke("ShootTheBall", 1.1f);
         }
         void Update()
         {
             switch (fsmBall)
             {
                 case FootBall_FSM.START_POSE:
-                    //speedBall = 0;
                     break;
                 case FootBall_FSM.TRANSITION_BALL:
                     TransitionForwardBall();
@@ -90,27 +87,31 @@ namespace Gavryk.Physics.Football
         public void VictoryPanel()
         {
             panelWin.SetActive(true);
-            isGameActive = false;
+            fsmBall = FootBall_FSM.STOP_IT;
+            // isGameActive = false;
         }
         public void LosePanel()
         {
             panelLose.SetActive(true);
-            isGameActive = false;
+            fsmBall = FootBall_FSM.STOP_IT;
+            // isGameActive = false;
         }
 
         #endregion Victory&LosePanel
 
         #endregion PublicMethods
 
-        public void OnTriggerEnter(Collider other)
+        public void OnTriggerEnter(Collider collision)
         {
-            if (other.gameObject.CompareTag("Humans") || other.CompareTag("PostePorteria"))
+            Debug.LogWarning("entro?");
+            if (collision.gameObject.CompareTag("Humans") || collision.gameObject.CompareTag("PostePorteria"))
             {
+                Debug.LogWarning("toco y gane ?");
                 VictoryPanel();
-
             }
-            else if (other.gameObject.CompareTag("RedPorteria"))
+            else if (collision.gameObject.CompareTag("RedPorteria"))
             {
+                Debug.LogWarning("toco Red y perdi?");
                 LosePanel();
             }
         }

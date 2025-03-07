@@ -92,7 +92,7 @@ namespace Gavryk.Physics.Billiard
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""Positive"",
+                    ""name"": ""Negative"",
                     ""id"": ""27d31f97-0d45-482d-81ba-5ceda82e5a4a"",
                     ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
@@ -103,7 +103,7 @@ namespace Gavryk.Physics.Billiard
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""Negative"",
+                    ""name"": ""Positive"",
                     ""id"": ""fef2b859-62a2-4f3a-8a3d-c4fa0fba1763"",
                     ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",

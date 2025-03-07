@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: SineParameters_SO
   m_EditorClassIdentifier: 
   sineParameters:
-    A: 1
-    B: 1
-    C: 0
-    D: 0
-    horizontalScale: 1
+    A: -1.9338822
+    B: 0.8432777
+    C: -3.960819
+    D: -4.2288365
+    horizontalScale: 3.5939398
