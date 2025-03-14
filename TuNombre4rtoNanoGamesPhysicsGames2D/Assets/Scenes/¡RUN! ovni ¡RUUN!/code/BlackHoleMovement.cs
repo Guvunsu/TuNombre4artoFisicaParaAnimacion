@@ -1,16 +1,66 @@
 using UnityEngine;
-
-public class BlackHoleMovement : MonoBehaviour
+namespace Gavryk.Physics.BlackHole
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public class BlackHoleMovement : MonoBehaviour
     {
-        
-    }
+        public struct SineParametersFootball
+        {
+            //A * sen(B * x + C) + D
+            public float A, B, C, D, horizontalScale;
+            //A: Vertical stretch
+            //B: Horizontal stretch
+            //C: Horizontal displacement
+            //D: Vertical displacement
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [SerializeField] float SpeedBlackHole;
+        [SerializeField] float lifetimeBlackHole;
+        [SerializeField] float startPos;
+        [SerializeField] float endPos;
+
+        [SerializeField] GameObject blackHole;
+
+        [SerializeField] Transform PointSpawnA;
+        [SerializeField] Transform PointSpawnB;
+        [SerializeField] Transform PointSpawnC;
+        [SerializeField] Transform PointSpawnD;
+        [SerializeField] Transform PointSpawnE;
+        [SerializeField] Transform PointSpawnF;
+        [SerializeField] Transform PointSpawnG;
+        [SerializeField] Transform PointSpawnH;
+
+        void Update()
+        {
+            MovementBlackHole();
+        }
+
+        void MovementBlackHole()
+        {
+            SpeedBlackHole += Time.fixedDeltaTime + 0.4f;
+            TimerBlackHole();
+        }
+
+        void TimerBlackHole()
+        {
+            if (blackHole == null)
+            {
+                //lifetimeBlackHole += Time.fixedDeltaTime;
+                //lifetimeBlackHole = 6f;
+                Destroy(blackHole, 6f);
+            }
+        }
+
+        void SpawnPositionBlackHoles()
+        {
+            PointSpawnA.position = new Vector3(startPos, endPos, 0);
+        }
+
+        [System.Serializable]
+
+        [CreateAssetMenu(fileName = "SineParameters_SO", menuName = "Scriptable Objects/SineParametersFootball_SO")]
+        public class SineParameters : ScriptableObject
+        {
+            [SerializeField] public SineParametersFootball sineParameters;
+        }
     }
 }
