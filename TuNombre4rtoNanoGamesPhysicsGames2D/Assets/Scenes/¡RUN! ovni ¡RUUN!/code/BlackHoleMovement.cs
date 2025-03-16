@@ -1,10 +1,7 @@
 using UnityEngine;
-namespace Gavryk.Physics.BlackHole
-{
-    public class BlackHoleMovement : MonoBehaviour
-    {
-        public struct SineParametersFootball
-        {
+namespace Gavryk.Physics.BlackHole {
+    public class BlackHoleMovement : MonoBehaviour {
+        public struct SineParametersFootball {
             //A * sen(B * x + C) + D
             public float A, B, C, D, horizontalScale;
             //A: Vertical stretch
@@ -29,37 +26,35 @@ namespace Gavryk.Physics.BlackHole
         [SerializeField] Transform PointSpawnG;
         [SerializeField] Transform PointSpawnH;
 
-        void Update()
-        {
+        void Update() {
             MovementBlackHole();
         }
 
-        void MovementBlackHole()
-        {
+        void MovementBlackHole() {
             SpeedBlackHole += Time.fixedDeltaTime + 0.4f;
-            TimerBlackHole();
+            TimerLifeBlackHole();
+            SineTransitionBlackHole();
+        }
+        void SineTransitionBlackHole() {
+
         }
 
-        void TimerBlackHole()
-        {
-            if (blackHole == null)
-            {
+        void TimerLifeBlackHole() {
+            if (blackHole == null) {
                 //lifetimeBlackHole += Time.fixedDeltaTime;
                 //lifetimeBlackHole = 6f;
                 Destroy(blackHole, 6f);
             }
         }
 
-        void SpawnPositionBlackHoles()
-        {
-            PointSpawnA.position = new Vector3(startPos, endPos, 0);
+        void SpawnPositionBlackHoles() {
+            PointSpawnA.position = new Vector2(startPos, endPos);
         }
 
         [System.Serializable]
 
         [CreateAssetMenu(fileName = "SineParameters_SO", menuName = "Scriptable Objects/SineParametersFootball_SO")]
-        public class SineParameters : ScriptableObject
-        {
+        public class SineParameters : ScriptableObject {
             [SerializeField] public SineParametersFootball sineParameters;
         }
     }
