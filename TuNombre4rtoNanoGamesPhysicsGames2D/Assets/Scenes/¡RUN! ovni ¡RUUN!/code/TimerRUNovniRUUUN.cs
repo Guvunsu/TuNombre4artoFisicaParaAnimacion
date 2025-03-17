@@ -16,11 +16,6 @@ namespace Gavryk.Physics.BlackHole {
         void Update() {
             IncrementCronometerRUNovniRUUUN();
         }
-        void ActivateVictory() {
-            if (iNeedTheVicPanel != null) {
-                iNeedTheVicPanel.VictoryPanel();
-            }
-        }
         void IncrementCronometerRUNovniRUUUN() {
             if (timerActive) {
                 timer += Time.deltaTime;
@@ -29,6 +24,11 @@ namespace Gavryk.Physics.BlackHole {
                     timerActive = false;
                     ActivateVictory();
                 }
+            }
+        }
+        void ActivateVictory() {
+            if (iNeedTheVicPanel != null) {
+                iNeedTheVicPanel.VictoryPanel();
             }
         }
     }

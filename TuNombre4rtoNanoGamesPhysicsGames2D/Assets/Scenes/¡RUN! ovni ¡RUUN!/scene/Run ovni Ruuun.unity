@@ -596,7 +596,7 @@ Transform:
   m_GameObject: {fileID: 661657105}
   serializedVersion: 2
   m_LocalRotation: {x: -0.5, y: 0, z: 0, w: 0.8660254}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -8.03, y: 1.4, z: 0}
   m_LocalScale: {x: 1.2462457, y: 1.2462457, z: 1.2462457}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1073,6 +1073,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1960993024}
   - component: {fileID: 1960993025}
+  - component: {fileID: 1960993026}
   m_Layer: 0
   m_Name: HurtBox
   m_TagString: Untagged
@@ -1116,6 +1117,33 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.2765843
   m_Center: {x: -0.01677468, y: -0.17824836, z: -0.054240867}
+--- !u!54 &1960993026
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1960993023}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2019309973
 GameObject:
   m_ObjectHideFlags: 0
