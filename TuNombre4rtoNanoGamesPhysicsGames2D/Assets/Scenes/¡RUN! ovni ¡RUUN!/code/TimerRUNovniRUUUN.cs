@@ -2,14 +2,14 @@ using TMPro;
 using UnityEngine;
 namespace Gavryk.Physics.BlackHole {
     public class TimerRUNovniRUUUN : MonoBehaviour {
-        [SerializeField, HideInInspector] bool timerActive;
+        [SerializeField] bool timerActive;
         [SerializeField] float timer;
         [SerializeField] TMP_Text timeTxt;
 
-        public MovementOVNI iNeedTheVicPanel;
+        [SerializeField] public MovementOVNI iNeedTheVicPanel;
 
         void Start() {
-            iNeedTheVicPanel = GetComponent<MovementOVNI>();
+            //iNeedTheVicPanel = GetComponent<MovementOVNI>();
             timerActive = true;
             timer = 0f;
         }
@@ -18,9 +18,9 @@ namespace Gavryk.Physics.BlackHole {
         }
         void IncrementCronometerRUNovniRUUUN() {
             if (timerActive) {
-                timer += Time.deltaTime;
+                timer += Time.fixedDeltaTime;
                 timeTxt.text = timer.ToString("F2");
-                if (timer <= 6.66f) {
+                if (timer >= 6.66f) {
                     timerActive = false;
                     ActivateVictory();
                 }
