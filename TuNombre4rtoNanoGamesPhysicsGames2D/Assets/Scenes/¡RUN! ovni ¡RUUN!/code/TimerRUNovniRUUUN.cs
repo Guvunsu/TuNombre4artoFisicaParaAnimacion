@@ -6,10 +6,11 @@ namespace Gavryk.Physics.BlackHole {
         [SerializeField] float timer;
         [SerializeField] TMP_Text timeTxt;
 
-        [SerializeField] public MovementOVNI iNeedTheVicPanel;
+        [SerializeField] public MovementOVNI iNeedThisPanel;
+     //   [SerializeField] GameObject panelLose;
 
         void Start() {
-            //iNeedTheVicPanel = GetComponent<MovementOVNI>();
+            //iNeedThisPanel = GetComponent<MovementOVNI>();
             timerActive = true;
             timer = 0f;
         }
@@ -18,7 +19,7 @@ namespace Gavryk.Physics.BlackHole {
         }
         void IncrementCronometerRUNovniRUUUN() {
             if (timerActive) {
-                timer += Time.fixedDeltaTime;
+                timer += Time.deltaTime;
                 timeTxt.text = timer.ToString("F2");
                 if (timer >= 6.66f) {
                     timerActive = false;
@@ -27,9 +28,11 @@ namespace Gavryk.Physics.BlackHole {
             }
         }
         void ActivateVictory() {
-            if (iNeedTheVicPanel != null) {
-                iNeedTheVicPanel.VictoryPanel();
+            if (iNeedThisPanel != null) {
+                iNeedThisPanel.VictoryPanel();
+                //panelLose.SetActive(false);
             }
         }
     }
 }
+

@@ -10,6 +10,7 @@ TagManager:
   - Humans
   - SpaceShip
   - BlackHole
+  - Wall
   layers:
   - Default
   - TransparentFX
