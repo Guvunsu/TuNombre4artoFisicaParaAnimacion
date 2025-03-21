@@ -62,29 +62,20 @@ namespace Gavryk.Physics.BlackHole {
                     break;
             }
             transform.Translate(direction * speedMov, Space.World);
-            //experimento que no funciono
-            //if (gameFSM != GameState.PLAYING) {
-            //    if (timerScript != null) {
-            //        VictoryPanel();
-            //    } else
-            //        LosePanel();
-            //    return;
-            //}
-
         }
         #endregion UnityMethods
 
         #region MoveShip
         public void MoveSpaceShip(InputAction.CallbackContext value) {
             Debug.Log("MoveSpaceShip: " + value.ReadValue<Vector2>());
-            if (value.performed) {
+            if (value.performed && gameFSM == GameState.PLAYING) {
                 direction = value.ReadValue<Vector2>();
                 playerFSM = MoveShip.MOVING;
-                gameFSM = GameState.PLAYING;
-            } else if (value.canceled) {
+                //gameFSM = GameState.PLAYING;
+            } else if (value.canceled && gameFSM == GameState.PLAYING) {
                 //direction = Vector2.zero;
                 playerFSM = MoveShip.STOP_IT;
-                gameFSM = GameState.PLAYING;
+                //gameFSM = GameState.PLAYING;
             }
         }
         #endregion MoveShip
@@ -113,13 +104,14 @@ namespace Gavryk.Physics.BlackHole {
         #endregion Victory&LosePanel
 
         #region Collisions
-        public void OnTriggerEnter(Collider other) {
+        public void OnTriggerStay(Collider other) {
             if (other.gameObject.CompareTag("Wall")) {
                 //el vector youShallNotPass podria solo existir aqui solamente este este trigger
                 playerFSM = MoveShip.STOP_IT;
                 youShallNotPass = Vector3.zero;
                 direction = Vector3.zero;
                 youShallNotPass = (transform.position - direction).normalized;
+                LosePanel();
             }
             if (other.gameObject.CompareTag("BlackHole")) {
                 LosePanel();
