@@ -479,6 +479,7 @@ Transform:
   - {fileID: 1071105626}
   - {fileID: 2070944826}
   - {fileID: 599381881}
+  - {fileID: 312103261}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &154891518
@@ -966,12 +967,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 312103257}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.5192345, y: -10.0236435, z: -6.2076745}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.7480079, y: -5.175383, z: -2.7167256}
   m_LocalScale: {x: 19.005, y: 19.005, z: 19.005}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 125947124}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &315764433
 GameObject:
@@ -1444,6 +1445,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 519794550}
+  - component: {fileID: 519794551}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -1466,6 +1468,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &519794551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519794549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0a7b9304ac3c734aba57d59304142ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &527477468
 Mesh:
   m_ObjectHideFlags: 0
@@ -11384,6 +11398,7 @@ MonoBehaviour:
   leverLeft: {fileID: 870897969}
   leverRight: {fileID: 1459040817}
   SpringPinball: {fileID: 1382751596}
+  pinball_Ball: {fileID: 0}
   controller: {fileID: 870897974}
 --- !u!1 &980319521
 GameObject:
@@ -17233,6 +17248,7 @@ MonoBehaviour:
   leverLeft: {fileID: 870897969}
   leverRight: {fileID: 1459040817}
   SpringPinball: {fileID: 1382751596}
+  pinball_Ball: {fileID: 0}
   controller: {fileID: 1382751597}
 --- !u!1 &1459040816
 GameObject:
@@ -23218,6 +23234,7 @@ MonoBehaviour:
   leverLeft: {fileID: 870897969}
   leverRight: {fileID: 1459040817}
   SpringPinball: {fileID: 1382751596}
+  pinball_Ball: {fileID: 0}
   controller: {fileID: 1459040822}
 --- !u!1 &1517508626
 GameObject:
@@ -25165,4 +25182,3 @@ SceneRoots:
   - {fileID: 350375445}
   - {fileID: 1010925819}
   - {fileID: 224443387}
-  - {fileID: 312103261}
