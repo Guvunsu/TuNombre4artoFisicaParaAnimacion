@@ -11,6 +11,7 @@ TagManager:
   - SpaceShip
   - BlackHole
   - Wall
+  - Fondo
   layers:
   - Default
   - TransparentFX

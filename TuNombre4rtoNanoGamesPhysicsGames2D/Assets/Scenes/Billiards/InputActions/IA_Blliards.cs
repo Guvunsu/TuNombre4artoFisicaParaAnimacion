@@ -55,6 +55,15 @@ namespace Gavryk.Physics.Billiard
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""PinballMovement"",
+                    ""type"": ""Value"",
+                    ""id"": ""fa396c6d-8f84-4eb2-8c4d-6ebb725b4a62"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -112,6 +121,39 @@ namespace Gavryk.Physics.Billiard
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""b132e2e5-1314-4835-bd9c-7a229cd7dac3"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PinballMovement"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""43f04c58-abfa-41f4-914c-23336e635633"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PinballMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""ad63f077-2718-4f0a-b832-45e68aaba185"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""PinballMovement"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -145,6 +187,7 @@ namespace Gavryk.Physics.Billiard
             m_ControlMaster_MouseClickRight = m_ControlMaster.FindAction("Mouse ClickRight", throwIfNotFound: true);
             m_ControlMaster_KeyboardSpaceBar = m_ControlMaster.FindAction("Keyboard SpaceBar", throwIfNotFound: true);
             m_ControlMaster_Movement = m_ControlMaster.FindAction("Movement", throwIfNotFound: true);
+            m_ControlMaster_PinballMovement = m_ControlMaster.FindAction("PinballMovement", throwIfNotFound: true);
         }
 
         ~@IA_Blliards()
@@ -214,6 +257,7 @@ namespace Gavryk.Physics.Billiard
         private readonly InputAction m_ControlMaster_MouseClickRight;
         private readonly InputAction m_ControlMaster_KeyboardSpaceBar;
         private readonly InputAction m_ControlMaster_Movement;
+        private readonly InputAction m_ControlMaster_PinballMovement;
         public struct ControlMasterActions
         {
             private @IA_Blliards m_Wrapper;
@@ -221,6 +265,7 @@ namespace Gavryk.Physics.Billiard
             public InputAction @MouseClickRight => m_Wrapper.m_ControlMaster_MouseClickRight;
             public InputAction @KeyboardSpaceBar => m_Wrapper.m_ControlMaster_KeyboardSpaceBar;
             public InputAction @Movement => m_Wrapper.m_ControlMaster_Movement;
+            public InputAction @PinballMovement => m_Wrapper.m_ControlMaster_PinballMovement;
             public InputActionMap Get() { return m_Wrapper.m_ControlMaster; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -239,6 +284,9 @@ namespace Gavryk.Physics.Billiard
                 @Movement.started += instance.OnMovement;
                 @Movement.performed += instance.OnMovement;
                 @Movement.canceled += instance.OnMovement;
+                @PinballMovement.started += instance.OnPinballMovement;
+                @PinballMovement.performed += instance.OnPinballMovement;
+                @PinballMovement.canceled += instance.OnPinballMovement;
             }
 
             private void UnregisterCallbacks(IControlMasterActions instance)
@@ -252,6 +300,9 @@ namespace Gavryk.Physics.Billiard
                 @Movement.started -= instance.OnMovement;
                 @Movement.performed -= instance.OnMovement;
                 @Movement.canceled -= instance.OnMovement;
+                @PinballMovement.started -= instance.OnPinballMovement;
+                @PinballMovement.performed -= instance.OnPinballMovement;
+                @PinballMovement.canceled -= instance.OnPinballMovement;
             }
 
             public void RemoveCallbacks(IControlMasterActions instance)
@@ -292,6 +343,7 @@ namespace Gavryk.Physics.Billiard
             void OnMouseClickRight(InputAction.CallbackContext context);
             void OnKeyboardSpaceBar(InputAction.CallbackContext context);
             void OnMovement(InputAction.CallbackContext context);
+            void OnPinballMovement(InputAction.CallbackContext context);
         }
     }
 }
