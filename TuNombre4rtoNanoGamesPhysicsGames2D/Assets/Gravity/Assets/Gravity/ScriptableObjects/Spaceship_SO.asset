@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01afd24db4695fa4a9f844b8a59143c2, type: 3}
+  m_Name: Spaceship_SO
+  m_EditorClassIdentifier: 
+  parameters:
+    coroutineDeltaTime: 0.04166667
+    steerCap: 15
+    throttleCap: 80
+    gravityCap: 15
+    gravityStopThreshold: 2
+    raycastDistance: 6
+    frictionBounce: 2
