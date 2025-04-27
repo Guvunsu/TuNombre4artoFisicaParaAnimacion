@@ -112,7 +112,7 @@ public class InputPlayer : MonoBehaviour {
         }
     }
 
-    private void LaunchBall() {
+    public void LaunchBall() {
         if (ballRb != null) {
             ballRb.isKinematic = false;
             ballRb.AddForce(Vector3.forward * currentSpringForce, ForceMode.Impulse);
@@ -122,7 +122,7 @@ public class InputPlayer : MonoBehaviour {
         }
     }
 
-    private void RotateFlipper(Transform flipper, float targetAngle) {
+    public void RotateFlipper(Transform flipper, float targetAngle) {
         if (flipper == null) return;
 
         Vector3 rotation = flipper.localEulerAngles;
