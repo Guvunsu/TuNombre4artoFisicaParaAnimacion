@@ -1,107 +1,133 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.ProBuilder.MeshOperations;
 
-
-public class InputPlayer : MonoBehaviour
-{
+public class InputPlayer : MonoBehaviour {
     #region ENUM
-    public enum GameState
-    {
+    public enum GameState {
         LIFE,
         DIYING
     }
-    public enum playerFSM
-    {
+    public enum PlayerFSM {
+        IDLE,
         SHOOT_THE_BALL,
         PLAYING,
     }
-
     #endregion ENUM
 
     #region Variables
-    PanelManager script_panelManager;
     [SerializeField] GameState gameState_FSM;
-    [SerializeField] playerFSM player_FSM;
+    [SerializeField] PlayerFSM player_FSM;
 
-    [SerializeField] float springForce;
-    [SerializeField] float leverPinball;
-
+    [Header("Flipper Settings")]
     [SerializeField] Transform leverLeft;
     [SerializeField] Transform leverRight;
-    [SerializeField] Transform SpringPinball;
-    [SerializeField] GameObject pinball_Ball;
+    [SerializeField] float flipperForce = 500f;
+    [SerializeField] float flipperRestPosition = 0f;
+    [SerializeField] float flipperPressedPosition = 45f;
 
+    [Header("Spring Settings")]
+    [SerializeField] Transform springPinball;
+    [SerializeField] GameObject pinball_Ball;
+    [SerializeField] float maxSpringForce = 20f;
+    [SerializeField] float chargeSpeed = 10f;
+    private float currentSpringForce = 0f;
+    private bool isCharging = false;
+
+    [Header("Inputs")]
     [SerializeField] PlayerInput controller;
 
+    private Rigidbody ballRb;
+
+    private bool isLeftFlipperPressed = false;
+    private bool isRightFlipperPressed = false;
     #endregion Variables
 
     #region UnityMethods
-    void Start()
-    {
-        player_FSM = playerFSM.SHOOT_THE_BALL;
+    void Start() {
+        player_FSM = PlayerFSM.SHOOT_THE_BALL;
+        ballRb = pinball_Ball.GetComponent<Rigidbody>();
     }
 
-    void Update()
-    {
-        switch (gameState_FSM)
-        {
+    void Update() {
+        switch (gameState_FSM) {
             case GameState.LIFE:
-                player_FSM = playerFSM.PLAYING;
+                if (!isCharging) {
+                    if (isLeftFlipperPressed || isRightFlipperPressed)
+                        player_FSM = PlayerFSM.PLAYING;
+                    else
+                        player_FSM = PlayerFSM.IDLE;
+                }
                 break;
             case GameState.DIYING:
-
+                // prototype for now :3
                 break;
+        }
+
+        if (player_FSM == PlayerFSM.SHOOT_THE_BALL && isCharging) {
+            currentSpringForce += chargeSpeed * Time.deltaTime;
+            currentSpringForce = Mathf.Clamp(currentSpringForce, 0f, maxSpringForce);
+
+            if (springPinball != null) {
+                springPinball.localPosition = new Vector3(0, -currentSpringForce * 0.05f, 0);
+            }
         }
     }
     #endregion UnityMethods
 
     #region PublicMethods
-    public void MoveLeverPinballPlayer(InputAction.CallbackContext value)
-    {
-        if (value.performed && player_FSM == playerFSM.PLAYING)
-        {
-            if (leverLeft.rotation.z > -42 * transform.rotation.z)
-            {
-                leverLeft.Rotate(UnityEngine.Vector3.down * springForce * Time.fixedDeltaTime);
-            }
-            else if (leverLeft.rotation.z < 0 * transform.rotation.z)
-            {
-                leverLeft.Rotate(UnityEngine.Vector3.up * springForce * Time.fixedDeltaTime);
-            }
-        }
-        if (value.performed)
-        {
-            if (leverRight.rotation.z > -42 * transform.rotation.z)
-            {
-                leverRight.Rotate(UnityEngine.Vector3.down * springForce * Time.fixedDeltaTime);
-            }
-            else if (leverRight.rotation.z < 0 * transform.rotation.z)
-            {
-                leverRight.Rotate(UnityEngine.Vector3.up * springForce * Time.fixedDeltaTime);
-            }
-        }
-        //else if (value.canceled)
-        //{
+    public void MoveLeftFlipper(InputAction.CallbackContext context) {
+        if (player_FSM == PlayerFSM.SHOOT_THE_BALL) return;
 
-        //}
+        if (context.performed) {
+            RotateFlipper(leverLeft, flipperPressedPosition);
+            isLeftFlipperPressed = true;
+        } else if (context.canceled) {
+            RotateFlipper(leverLeft, flipperRestPosition);
+            isLeftFlipperPressed = false;
+        }
     }
 
+    public void MoveRightFlipper(InputAction.CallbackContext context) {
+        if (player_FSM == PlayerFSM.SHOOT_THE_BALL) return;
+
+        if (context.performed) {
+            RotateFlipper(leverRight, -flipperPressedPosition);
+            isRightFlipperPressed = true;
+        } else if (context.canceled) {
+            RotateFlipper(leverRight, flipperRestPosition);
+            isRightFlipperPressed = false;
+        }
+    }
+
+    public void ChargeSpring(InputAction.CallbackContext context) {
+        if (player_FSM != PlayerFSM.SHOOT_THE_BALL && !isCharging) return;
+
+        if (context.started) {
+            isCharging = true;
+            currentSpringForce = 0f;
+        } else if (context.canceled) {
+            isCharging = false;
+            LaunchBall();
+        }
+    }
+
+    private void LaunchBall() {
+        if (ballRb != null) {
+            ballRb.isKinematic = false;
+            ballRb.AddForce(Vector3.forward * currentSpringForce, ForceMode.Impulse);
+
+            player_FSM = PlayerFSM.IDLE; // Al lanzar la bola, entras en IDLE y luego Update detectará si mueves flippers
+            springPinball.localPosition = Vector3.zero;
+        }
+    }
+
+    private void RotateFlipper(Transform flipper, float targetAngle) {
+        if (flipper == null) return;
+
+        Vector3 rotation = flipper.localEulerAngles;
+        rotation.z = targetAngle;
+        flipper.localEulerAngles = rotation;
+    }
     #endregion PublicMethods
-
-    #region Triggers
-
-    public void OnTriggerEnter(Collider other)
-    {
-        if (other.gameObject.CompareTag("Player"))
-        {
-
-        }
-        if (other.gameObject.CompareTag("Fondo"))
-        {
-
-        }
-    }
-
-    #endregion Triggers
 }
