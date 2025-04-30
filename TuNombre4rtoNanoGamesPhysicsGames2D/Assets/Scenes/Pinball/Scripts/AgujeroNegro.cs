@@ -2,7 +2,12 @@ using UnityEngine;
 
 public class AgujeroNegro : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    [Header("Componentes")]
+    [SerializeField] Transform blackHole;
+
+    [Header("Random Range")]
+    public float [Random.Range]
+
     void Start()
     {
         

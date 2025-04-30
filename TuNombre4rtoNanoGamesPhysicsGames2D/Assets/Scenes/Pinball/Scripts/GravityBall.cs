@@ -16,10 +16,8 @@ namespace Gravity
         {
             if (isGround == true)
             {
-
                 verticalGravity -= gravityForce * Time.fixedDeltaTime;
                 transform.Translate(Vector3.up * verticalGravity * Time.fixedDeltaTime);
-
             }
         }
 
