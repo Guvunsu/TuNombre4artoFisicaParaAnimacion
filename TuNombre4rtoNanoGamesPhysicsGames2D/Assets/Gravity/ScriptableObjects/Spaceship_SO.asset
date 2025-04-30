@@ -19,4 +19,4 @@ MonoBehaviour:
     gravityCap: 15
     gravityStopThreshold: 2
     raycastDistance: 6
-    frictionBounce: 2
+    frictionBounce: 354515040

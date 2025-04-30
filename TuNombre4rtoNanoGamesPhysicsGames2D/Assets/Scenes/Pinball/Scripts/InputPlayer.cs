@@ -2,13 +2,16 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class InputPlayer : MonoBehaviour {
+public class InputPlayer : MonoBehaviour
+{
     #region ENUM
-    public enum GameState {
+    public enum GameState
+    {
         LIFE,
         DIYING
     }
-    public enum PlayerFSM {
+    public enum PlayerFSM
+    {
         IDLE,
         SHOOT_THE_BALL,
         PLAYING,
@@ -31,28 +34,33 @@ public class InputPlayer : MonoBehaviour {
     [SerializeField] GameObject pinball_Ball;
     [SerializeField] float maxSpringForce = 20f;
     [SerializeField] float chargeSpeed = 10f;
-    private float currentSpringForce = 0f;
-    private bool isCharging = false;
+    float currentSpringForce = 0f;
+    bool isCharging = false;
 
     [Header("Inputs")]
-    [SerializeField] PlayerInput controller;
+    [SerializeField] PlayerInput controllerLeft;
+    [SerializeField] PlayerInput controllerRight;
 
-    private Rigidbody ballRb;
+    Rigidbody ballRb;
 
-    private bool isLeftFlipperPressed = false;
-    private bool isRightFlipperPressed = false;
+    bool isLeftFlipperPressed = false;
+    bool isRightFlipperPressed = false;
     #endregion Variables
 
     #region UnityMethods
-    void Start() {
+    void Start()
+    {
         player_FSM = PlayerFSM.SHOOT_THE_BALL;
         ballRb = pinball_Ball.GetComponent<Rigidbody>();
     }
 
-    void Update() {
-        switch (gameState_FSM) {
+    void Update()
+    {
+        switch (gameState_FSM)
+        {
             case GameState.LIFE:
-                if (!isCharging) {
+                if (!isCharging)
+                {
                     if (isLeftFlipperPressed || isRightFlipperPressed)
                         player_FSM = PlayerFSM.PLAYING;
                     else
@@ -64,11 +72,13 @@ public class InputPlayer : MonoBehaviour {
                 break;
         }
 
-        if (player_FSM == PlayerFSM.SHOOT_THE_BALL && isCharging) {
+        if (player_FSM == PlayerFSM.SHOOT_THE_BALL && isCharging)
+        {
             currentSpringForce += chargeSpeed * Time.deltaTime;
             currentSpringForce = Mathf.Clamp(currentSpringForce, 0f, maxSpringForce);
 
-            if (springPinball != null) {
+            if (springPinball != null)
+            {
                 springPinball.localPosition = new Vector3(0, -currentSpringForce * 0.05f, 0);
             }
         }
@@ -76,44 +86,61 @@ public class InputPlayer : MonoBehaviour {
     #endregion UnityMethods
 
     #region PublicMethods
-    public void MoveLeftFlipper(InputAction.CallbackContext context) {
+
+    public void MoveLeftFlipper(InputAction.CallbackContext context)
+    {
         if (player_FSM == PlayerFSM.SHOOT_THE_BALL) return;
 
-        if (context.performed) {
+        if (context.performed)
+        {
             RotateFlipper(leverLeft, flipperPressedPosition);
             isLeftFlipperPressed = true;
-        } else if (context.canceled) {
+            ballRb.AddForce(Vector3.forward * flipperForce, ForceMode.Impulse);
+        }
+        else if (context.canceled)
+        {
             RotateFlipper(leverLeft, flipperRestPosition);
             isLeftFlipperPressed = false;
         }
     }
 
-    public void MoveRightFlipper(InputAction.CallbackContext context) {
+    public void MoveRightFlipper(InputAction.CallbackContext context)
+    {
         if (player_FSM == PlayerFSM.SHOOT_THE_BALL) return;
 
-        if (context.performed) {
+        if (context.performed)
+        {
             RotateFlipper(leverRight, -flipperPressedPosition);
             isRightFlipperPressed = true;
-        } else if (context.canceled) {
+            ballRb.AddForce(Vector3.forward * flipperForce, ForceMode.Impulse);
+        }
+        else if (context.canceled)
+        {
             RotateFlipper(leverRight, flipperRestPosition);
             isRightFlipperPressed = false;
         }
     }
 
-    public void ChargeSpring(InputAction.CallbackContext context) {
+    public void ChargeSpring(InputAction.CallbackContext context)
+    {
         if (player_FSM != PlayerFSM.SHOOT_THE_BALL && !isCharging) return;
 
-        if (context.started) {
+        if (context.started)
+        {
             isCharging = true;
             currentSpringForce = 0f;
-        } else if (context.canceled) {
+        }
+        else if (context.canceled)
+        {
             isCharging = false;
             LaunchBall();
         }
     }
 
-    public void LaunchBall() {
-        if (ballRb != null) {
+    public void LaunchBall()
+    {
+        if (ballRb != null)
+        {
             ballRb.isKinematic = false;
             ballRb.AddForce(Vector3.forward * currentSpringForce, ForceMode.Impulse);
 
@@ -122,11 +149,12 @@ public class InputPlayer : MonoBehaviour {
         }
     }
 
-    public void RotateFlipper(Transform flipper, float targetAngle) {
+    public void RotateFlipper(Transform flipper, float targetAngle)
+    {
         if (flipper == null) return;
 
         Vector3 rotation = flipper.localEulerAngles;
-        rotation.z = targetAngle;
+        rotation.y = targetAngle + 65f;
         flipper.localEulerAngles = rotation;
     }
     #endregion PublicMethods
