@@ -1,16 +1,21 @@
 using UnityEngine;
+using static Gavryk.Physics.BlackHole.MovementOVNI;
+using static InputPlayer;
 
-public class PanelManager : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
+public class PanelManager : MonoBehaviour {
+
+    [SerializeField] GameObject panelWin;
+    [SerializeField] GameObject panelLose;
+
+    #region Victory&LosePanel
+    public void VictoryPanel() {
+        panelWin.SetActive(true);
+        panelLose.SetActive(false);
+    }
+    public void LosePanel() {
+        panelLose.SetActive(true);
+        panelWin.SetActive(false);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    #endregion Victory&LosePanel
 }

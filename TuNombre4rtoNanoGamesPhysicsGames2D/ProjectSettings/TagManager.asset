@@ -12,6 +12,7 @@ TagManager:
   - BlackHole
   - Wall
   - Fondo
+  - PinballBall
   layers:
   - Default
   - TransparentFX
