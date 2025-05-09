@@ -13,6 +13,8 @@ TagManager:
   - Wall
   - Fondo
   - PinballBall
+  - Obstacules
+  - Canasta
   layers:
   - Default
   - TransparentFX
