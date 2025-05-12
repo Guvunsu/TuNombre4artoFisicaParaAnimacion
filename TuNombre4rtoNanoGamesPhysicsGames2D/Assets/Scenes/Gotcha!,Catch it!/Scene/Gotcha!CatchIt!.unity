@@ -19473,6 +19473,14 @@ PrefabInstance:
       propertyPath: throttle
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 4379228554052662234, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
+      propertyPath: gravityForce
+      value: -9.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379228554052662234, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
+      propertyPath: gravityPercentage
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7284651199687400282, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
       propertyPath: m_IsKinematic
       value: 1
