@@ -15657,11 +15657,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!4 &1775893334 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8061740377733241223, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
-  m_PrefabInstance: {fileID: 7211795348895915262}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1857003396
 GameObject:
   m_ObjectHideFlags: 0
@@ -16470,7 +16465,7 @@ Transform:
   m_GameObject: {fileID: 1929934656}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.78, y: 0.8, z: 3.54}
+  m_LocalPosition: {x: 13.78, y: 0.6, z: 3.54}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17324,38 +17319,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1976013666}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2004853114
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2004853115}
-  m_Layer: 0
-  m_Name: PistolaPelotas
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2004853115
+--- !u!4 &2004853115 stripped
 Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+  m_PrefabInstance: {fileID: 7235320189348132465}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2004853114}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.4, y: 4.41, z: -5.88}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1775893334}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2014555190
 GameObject:
   m_ObjectHideFlags: 0
@@ -19439,6 +19407,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2123956615}
+  - component: {fileID: 2123956616}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -19461,29 +19430,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2123956616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123956614}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf6e555e95489314ebad4dd10b320e03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basket8x: {fileID: 719863419}
+  basket4x: {fileID: 1307000298}
+  basket2x: {fileID: 1409207383}
+  scoreUpdate: {fileID: 92840803}
+  ballCount: {fileID: 1389269156}
 --- !u!1001 &7211795348895915262
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 2004853115}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1022757001210399844, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
+      propertyPath: pointEjectBall
+      value: 
+      objectReference: {fileID: 2004853115}
     - target: {fileID: 4379228554052662234, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
-      propertyPath: throttle
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 4379228554052662234, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
-      propertyPath: gravityForce
-      value: -9.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 4379228554052662234, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
-      propertyPath: gravityPercentage
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7284651199687400282, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
+      propertyPath: gravityAccelerationForce
+      value: 1.1
       objectReference: {fileID: 0}
     - target: {fileID: 7466407925720196006, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
       propertyPath: m_Name
@@ -19491,15 +19469,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8061740377733241223, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 8061740377733241223, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.41
       objectReference: {fileID: 0}
     - target: {fileID: 8061740377733241223, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -5.88
       objectReference: {fileID: 0}
     - target: {fileID: 8061740377733241223, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19534,6 +19512,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
+--- !u!1001 &7235320189348132465
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.41
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5.88
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071200428370124302, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
+      propertyPath: m_Name
+      value: PistolaPelotas
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -19545,4 +19580,5 @@ SceneRoots:
   - {fileID: 392222249}
   - {fileID: 1083174357}
   - {fileID: 2123956615}
-  - {fileID: 2004853115}
+  - {fileID: 7235320189348132465}
+  - {fileID: 7211795348895915262}
