@@ -26,7 +26,7 @@ public class MoveGotchaCatchItPinball : MonoBehaviour {
 
     [SerializeField] float speed = 5f;
     Vector3 direction;
- 
+
 
 
     #endregion Variables
@@ -53,6 +53,7 @@ public class MoveGotchaCatchItPinball : MonoBehaviour {
             playerState_FSM = PlayerState.PLAYING;
             Debug.Log("instanceo la pelota a la posicion selecionada ");
             ballsGame--;
+            script_GameManagerGotchaCatchItPinball.UpdateBallCount(ballsGame);
             Debug.Log("disminuye mi contador");
             canIStartTheShoot = true;
             if (!value.performed && !canIStartTheShoot && ballsGame == 0) {
@@ -67,8 +68,7 @@ public class MoveGotchaCatchItPinball : MonoBehaviour {
         if (context.performed && ballsGame > 0 && activeBalls == 0) {
             ballPrefab = Instantiate(ballPrefab, pointEjectBall.position, Quaternion.identity);
 
-            // Dirección aleatoria normalizada (solo en X e Y, 2D)
-            directionBall = new Vector3(Random.Range(-1f, 1f), 1f, 0f).normalized;
+            directionBall = new Vector3(0f, 0f, Random.Range(-1f, 1f)).normalized;
 
             activeBalls = 1;
             ballsGame--;

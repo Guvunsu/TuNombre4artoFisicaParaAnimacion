@@ -1279,7 +1279,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1536,7 +1536,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -11099,7 +11099,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -13377,9 +13377,9 @@ GameObject:
   - component: {fileID: 1507248532}
   - component: {fileID: 1507248531}
   - component: {fileID: 1507248530}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BG
-  m_TagString: Untagged
+  m_TagString: Obstacules
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13419,7 +13419,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -14650,7 +14650,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -17276,7 +17276,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -19544,7 +19544,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf6e555e95489314ebad4dd10b320e03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  script_MoveGotchaCatchItPinball: {fileID: 1662577644}
+  script_MoveGotchaCatchItPinball: {fileID: 0}
   basket8x: {fileID: 719863419}
   basket4x: {fileID: 1307000298}
   basket2x: {fileID: 1409207383}
@@ -19570,6 +19570,10 @@ PrefabInstance:
       propertyPath: script_GameManagerGotchaCatchItPinball
       value: 
       objectReference: {fileID: 2123956616}
+    - target: {fileID: 4379228554052662234, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
+      propertyPath: gravityForce
+      value: -9.9
+      objectReference: {fileID: 0}
     - target: {fileID: 4379228554052662234, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
       propertyPath: gravityAccelerationForce
       value: 1.1
@@ -19637,7 +19641,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.41
+      value: 5.87
       objectReference: {fileID: 0}
     - target: {fileID: 7427843249138028473, guid: 15c8a6965023a4d4687d7b8f7e1aa69b, type: 3}
       propertyPath: m_LocalPosition.z
