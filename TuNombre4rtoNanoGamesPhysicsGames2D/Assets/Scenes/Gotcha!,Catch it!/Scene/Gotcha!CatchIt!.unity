@@ -1244,7 +1244,7 @@ GameObject:
   - component: {fileID: 205695344}
   m_Layer: 7
   m_Name: Glass
-  m_TagString: Untagged
+  m_TagString: Obstacules
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1501,7 +1501,7 @@ GameObject:
   - component: {fileID: 273743684}
   m_Layer: 7
   m_Name: DownWall  (2)
-  m_TagString: Untagged
+  m_TagString: Obstacules
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11064,7 +11064,7 @@ GameObject:
   - component: {fileID: 1324058082}
   m_Layer: 7
   m_Name: LeftWall
-  m_TagString: Untagged
+  m_TagString: Obstacules
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14615,7 +14615,7 @@ GameObject:
   - component: {fileID: 1656289511}
   m_Layer: 7
   m_Name: 'RightWall '
-  m_TagString: Untagged
+  m_TagString: Obstacules
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17241,7 +17241,7 @@ GameObject:
   - component: {fileID: 1976013668}
   m_Layer: 7
   m_Name: DownWall  (1)
-  m_TagString: Untagged
+  m_TagString: Obstacules
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17353,7 +17353,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 72fbdf97e75b79e46baa8cbe17f13a68, type: 3}
-  m_NotificationBehavior: 3
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -17364,7 +17364,63 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5b19a40b-b094-4552-b4ac-a4619ba77e72
+    m_ActionName: 'ControlMaster/Mouse ClickRight[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fe88f501-8c10-4ed4-9cc3-d88c982a003d
+    m_ActionName: 'ControlMaster/Keyboard SpaceBar[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2feee535-b1e8-4d6c-8774-10025b3535e1
+    m_ActionName: 'ControlMaster/Movement[/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fa396c6d-8f84-4eb2-8c4d-6ebb725b4a62
+    m_ActionName: 'ControlMaster/RightFlipper[/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 903f9fbc-70fd-40e2-8e0d-1a7c49110413
+    m_ActionName: 'ControlMaster/LeftFlipper[/Keyboard/a]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 36753435-fca2-4be8-bd51-9130155618fc
+    m_ActionName: 'ControlMaster/Spring_Pinball[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1662577644}
+        m_TargetAssemblyTypeName: MoveGotchaCatchItPinball, Assembly-CSharp
+        m_MethodName: SpawnObject
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 8ae6e903-b70a-4bc6-9223-da86734ca1a1
+    m_ActionName: 'ControlMaster/InvokeBallGotchaAndPinball[/Keyboard/x]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1662577644}
+        m_TargetAssemblyTypeName: MoveGotchaCatchItPinball, Assembly-CSharp
+        m_MethodName: ShootTheBallGame
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a7b227a8-07fd-4600-a80f-99a8c6fd70cc
+    m_ActionName: 'ControlMaster/Shoot[/Keyboard/c]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: ControlMaster
@@ -19506,6 +19562,10 @@ PrefabInstance:
       propertyPath: pointEjectBall
       value: 
       objectReference: {fileID: 2004853115}
+    - target: {fileID: 1022757001210399844, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
+      propertyPath: spawnAction.m_Name
+      value: Spawn
+      objectReference: {fileID: 0}
     - target: {fileID: 1022757001210399844, guid: 8be674d6b3863ce4aa8fd7ca74b20bdf, type: 3}
       propertyPath: script_GameManagerGotchaCatchItPinball
       value: 
