@@ -18,8 +18,6 @@ public class MoveGotchaCatchItPinball : MonoBehaviour {
     bool canIStartTheShoot = true;
     int ballsGame = 9;
 
-    float time = 0;
-
     #endregion Variables
     void Start() {
         script_GameManagerGotchaCatchItPinball.UpdateBallCount(ballsGame);

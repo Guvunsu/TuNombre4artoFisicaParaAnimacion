@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb3920733bc2acf4489a04daf4dad753, type: 3}
-  m_Name: Pinball
+  m_Script: {fileID: 11500000, guid: 01afd24db4695fa4a9f844b8a59143c2, type: 3}
+  m_Name: PinballBall_SO
   m_EditorClassIdentifier: 
-  sineParameters:
-    A: 0
-    B: 0
-    C: 0
-    D: 0
-    horizontalScale: 0
+  parameters:
+    coroutineDeltaTime: 0.04166667
+    steerCap: 15
+    throttleCap: 80
+    gravityCap: 22.1
+    gravityStopThreshold: -3.77
+    raycastDistance: 1
+    frictionBounce: 57692308

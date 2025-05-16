@@ -1769,8 +1769,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224443387}
+  - component: {fileID: 224443391}
   - component: {fileID: 224443390}
-  - component: {fileID: 224443389}
   - component: {fileID: 224443386}
   - component: {fileID: 224443385}
   - component: {fileID: 224443384}
@@ -1868,7 +1868,8 @@ Transform:
   m_LocalPosition: {x: -2.99, y: -4.56, z: -7.34}
   m_LocalScale: {x: 1.0750111, y: 1.0750111, z: 1.0750111}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1002006949}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &224443388
@@ -1898,7 +1899,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &224443389
+--- !u!114 &224443390
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1907,16 +1908,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 224443383}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 121babf6b6990db4da0129c580898f87, type: 3}
+  m_Script: {fileID: 11500000, guid: c64bc0ef38da8be4385342b1e64a1696, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soParameters: {fileID: 11400000, guid: eff48e213fcb6d743a4e5188970f0166, type: 2}
-  _raycastPivot: {fileID: 224443387}
-  throttle: 0
-  gravityAccelerationForce: 0.981
+  _soParameters: {fileID: 11400000, guid: d1004612b9e0d3f47ba42a6c931cc28c, type: 2}
+  _raycastPivot: {fileID: 1002006949}
+  throttle: -5.15
+  gravityAccelerationForce: -9.81
   gravityForce: -9.81
-  gravityPercentage: 10
---- !u!114 &224443390
+  gravityPercentage: 1.5
+--- !u!114 &224443391
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1928,7 +1929,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b53177382a2824aaf945c562c25fb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball_Pinball: {fileID: 224443383}
+  ball_PinballRB: {fileID: 224443388}
 --- !u!1 &277172242
 GameObject:
   m_ObjectHideFlags: 0
@@ -12513,6 +12514,37 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &1002006948
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1002006949}
+  m_Layer: 0
+  m_Name: Raycast
+  m_TagString: PinballBall
+  m_Icon: {fileID: 8418204508859773708, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1002006949
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002006948}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.549}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 224443387}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1010925818
 GameObject:
   m_ObjectHideFlags: 0

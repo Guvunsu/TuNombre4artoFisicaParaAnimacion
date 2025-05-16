@@ -7,7 +7,7 @@ using static UnityEngine.Rendering.DebugUI;
 namespace Gravity
 {
 
-    public class GravityPinballBall : MonoBehaviour
+    public class GravityPinballBallGotchaCatchIt : MonoBehaviour
     {
         #region Parameters
 

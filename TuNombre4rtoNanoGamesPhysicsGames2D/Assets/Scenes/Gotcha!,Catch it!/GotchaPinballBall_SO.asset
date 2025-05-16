@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 01afd24db4695fa4a9f844b8a59143c2, type: 3}
-  m_Name: PinballBall_SO
+  m_Name: GotchaPinballBall_SO
   m_EditorClassIdentifier: 
   parameters:
     coroutineDeltaTime: 0.04166667
