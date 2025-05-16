@@ -4,8 +4,7 @@ using UnityEngine.InputSystem;
 using static Gavryk.Physics.BlackHole.MovementOVNI;
 using static InputPlayer;
 
-public class GameManagerGotchaCatchItPinball : MonoBehaviour
-{
+public class GameManagerGotchaCatchItPinball : MonoBehaviour {
 
     #region Variables
     [SerializeField] protected MoveGotchaCatchItPinball script_MoveGotchaCatchItPinball;
@@ -21,28 +20,23 @@ public class GameManagerGotchaCatchItPinball : MonoBehaviour
 
     #endregion Variables
 
-    void Start()
-    {
+    void Start() {
 
     }
 
-    void Update()
-    {
+    void Update() {
         UpdateScore();
     }
-    public void FinishBallCycle()
-    {
+    public void FinishBallCycle() {
         script_MoveGotchaCatchItPinball.StopTheGame();
     }
     #region CanastaThings
 
-    public void MultipliquerBasket(int points)
-    {
+    public void MultipliquerBasket(int points) {
         scoreAmount += points;
         UpdateScore();
     }
-    public void MultipliquerObstacules(int points)
-    {
+    public void MultipliquerObstacules(int points) {
         scoreAmount += points;
         UpdateScore();
     }
@@ -50,18 +44,16 @@ public class GameManagerGotchaCatchItPinball : MonoBehaviour
     #endregion CanastaThings
 
     #region Score
-    public void UpdateScore()
-    {
+    public void UpdateScore() {
         scoreUpdate.text = ("") + scoreAmount.ToString();
     }
-    public void AddPointsGotchaGatchaCatchIt()
-    {
+    public void AddPointsGotchaGatchaCatchIt() {
         scoreAmount += amount;
         UpdateScore();
     }
-    public void UpdateBallCount(int count)
-    {
+    public void UpdateBallCount(int count) {
         ballCount.text = "Pelotas: " + count.ToString();
     }
+
     #endregion Score
 }

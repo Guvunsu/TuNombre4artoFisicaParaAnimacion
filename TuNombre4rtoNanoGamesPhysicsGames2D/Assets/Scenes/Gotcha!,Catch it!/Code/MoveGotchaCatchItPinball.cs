@@ -32,7 +32,7 @@ public class MoveGotchaCatchItPinball : MonoBehaviour {
     #endregion Variables
     void Start() {
         script_GameManagerGotchaCatchItPinball.UpdateBallCount(ballsGame);
-        spawnAction.performed += SpawnObject;
+        // spawnAction.performed += SpawnObject;
     }
     void Update() {
         if (ballPrefab != null) {
@@ -48,35 +48,24 @@ public class MoveGotchaCatchItPinball : MonoBehaviour {
     #region ShootTheBall
 
     public void ShootTheBallGame(InputAction.CallbackContext value) {
-        if (value.performed && canIStartTheShoot && ballsGame > 0) //hacer que esto sea is pressed 
+        if (value.performed && canIStartTheShoot && ballsGame > 0 && activeBalls == 0) //hacer que esto sea is pressed 
         {
             playerState_FSM = PlayerState.PLAYING;
+            ballPrefab = Instantiate(ballPrefab, pointEjectBall.position, Quaternion.identity);
+            directionBall = new Vector3(0f, 0f, Random.Range(-1f, 1f)).normalized;
+            activeBalls = 1;
             Debug.Log("instanceo la pelota a la posicion selecionada ");
             ballsGame--;
             script_GameManagerGotchaCatchItPinball.UpdateBallCount(ballsGame);
             Debug.Log("disminuye mi contador");
             canIStartTheShoot = true;
+            //no estoy seguro si esto funciona :C no lo debuge
             if (!value.performed && !canIStartTheShoot && ballsGame == 0) {
                 script_GameManagerGotchaCatchItPinball.FinishBallCycle();
             }
             //script_GameManagerGotchaCatchItPinball.UpdateBallCount(ballsGame);
             //Debug.Log("Se actualiza los puntos de mi texto ");
 
-        }
-    }
-    public void SpawnObject(InputAction.CallbackContext context) {
-        if (context.performed && ballsGame > 0 && activeBalls == 0) {
-            ballPrefab = Instantiate(ballPrefab, pointEjectBall.position, Quaternion.identity);
-
-            directionBall = new Vector3(0f, 0f, Random.Range(-1f, 1f)).normalized;
-
-            activeBalls = 1;
-            ballsGame--;
-            script_GameManagerGotchaCatchItPinball.UpdateBallCount(ballsGame);
-
-            if (ballsGame == 0) {
-                canIStartTheShoot = false;
-            }
         }
     }
     void OnEnable() => spawnAction.Enable();
@@ -104,6 +93,8 @@ public class MoveGotchaCatchItPinball : MonoBehaviour {
             //invoke end game mechanic
             script_GameManagerGotchaCatchItPinball.FinishBallCycle();
             script_GameManagerGotchaCatchItPinball.UpdateScore();
+            script_GameManagerGotchaCatchItPinball.UpdateBallCount(ballsGame);
+            //script_GameManagerGotchaCatchItPinball.GetComponent<MoveGotchaCatchItPinball>().NotifyBallDestroyed();
             Destroy(gameObject);
             GetRemainingBallsGame();
             script_GameManagerGotchaCatchItPinball.FinishBallCycle();
