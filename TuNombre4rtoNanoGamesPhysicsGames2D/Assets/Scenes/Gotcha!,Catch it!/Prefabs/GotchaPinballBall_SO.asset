@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parameters:
     coroutineDeltaTime: 0.04166667
-    steerCap: 15
-    throttleCap: 80
-    gravityCap: 22.1
-    gravityStopThreshold: -3.77
-    raycastDistance: 6
-    frictionBounce: 1e+9
+    steerCap: 2
+    throttleCap: 131.9
+    gravityCap: 21.5
+    gravityStopThreshold: -9.65
+    raycastDistance: 5
+    frictionBounce: 1.25

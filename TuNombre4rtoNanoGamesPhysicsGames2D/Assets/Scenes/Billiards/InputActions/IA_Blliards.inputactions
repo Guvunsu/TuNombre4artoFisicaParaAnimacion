@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "InvokeBallGotchaAndPinball",
+                    "type": "Button",
+                    "id": "8ae6e903-b70a-4bc6-9223-da86734ca1a1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -146,6 +155,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "LeftFlipper",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "06668f65-d785-4884-9226-acb4e9a26956",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "InvokeBallGotchaAndPinball",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

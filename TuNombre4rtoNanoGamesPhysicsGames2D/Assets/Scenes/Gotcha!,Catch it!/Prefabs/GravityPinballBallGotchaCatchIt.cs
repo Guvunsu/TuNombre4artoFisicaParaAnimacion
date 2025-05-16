@@ -45,6 +45,7 @@ namespace Gravity
         protected Ray ray;
         protected RaycastHit raycastHit;
         protected float reflectionAngle;
+        protected Vector3 bounceDirection;
 
         #endregion
 
@@ -102,8 +103,10 @@ namespace Gravity
                             );
 
                         //transform.forward = raycastHit.normal;
-                        transform.forward =
-                            Quaternion.AngleAxis(reflectionAngle, transform.right) * raycastHit.normal;
+                        bounceDirection = Quaternion.AngleAxis(reflectionAngle, transform.right) * raycastHit.normal;
+                        bounceDirection.x = 0f;
+                        transform.forward = bounceDirection.normalized;
+                            
 
                         Debug.DrawRay(
                             raycastHit.point,
@@ -115,7 +118,7 @@ namespace Gravity
                         //friction factor to modify the throttle
                         throttle *= _soParameters.parameters.frictionBounce;
 
-                        Debug.Break(); //Pauses the game in editor mode
+                        //Debug.Break(); //Pauses the game in editor mode
                     }
                     break;
             }
@@ -123,15 +126,15 @@ namespace Gravity
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.gameObject.CompareTag("Gravity"))
-            {
-                isBeingPulledByGravity = false;
-                //we reset acceleration for the next contact
-                //with a gravity force
-                gravityAccelerationForce = 0.0f;
-                //we clear the data from this gravity force
-                gravityForce = 0f;
-            }
+            //if (other.gameObject.CompareTag("Gravity"))
+            //{
+            //    isBeingPulledByGravity = false;
+            //    //we reset acceleration for the next contact
+            //    //with a gravity force
+            //    gravityAccelerationForce = 0.0f;
+            //    //we clear the data from this gravity force
+            //    gravityForce = 0f;
+            //}
         }
 
         #endregion

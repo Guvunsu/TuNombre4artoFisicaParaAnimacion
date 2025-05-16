@@ -82,6 +82,15 @@ namespace Gavryk.Physics.Billiard
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""InvokeBallGotchaAndPinball"",
+                    ""type"": ""Button"",
+                    ""id"": ""8ae6e903-b70a-4bc6-9223-da86734ca1a1"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -172,6 +181,17 @@ namespace Gavryk.Physics.Billiard
                     ""action"": ""LeftFlipper"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""06668f65-d785-4884-9226-acb4e9a26956"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""InvokeBallGotchaAndPinball"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -208,6 +228,7 @@ namespace Gavryk.Physics.Billiard
             m_ControlMaster_RightFlipper = m_ControlMaster.FindAction("RightFlipper", throwIfNotFound: true);
             m_ControlMaster_LeftFlipper = m_ControlMaster.FindAction("LeftFlipper", throwIfNotFound: true);
             m_ControlMaster_Spring_Pinball = m_ControlMaster.FindAction("Spring_Pinball", throwIfNotFound: true);
+            m_ControlMaster_InvokeBallGotchaAndPinball = m_ControlMaster.FindAction("InvokeBallGotchaAndPinball", throwIfNotFound: true);
         }
 
         ~@IA_Blliards()
@@ -280,6 +301,7 @@ namespace Gavryk.Physics.Billiard
         private readonly InputAction m_ControlMaster_RightFlipper;
         private readonly InputAction m_ControlMaster_LeftFlipper;
         private readonly InputAction m_ControlMaster_Spring_Pinball;
+        private readonly InputAction m_ControlMaster_InvokeBallGotchaAndPinball;
         public struct ControlMasterActions
         {
             private @IA_Blliards m_Wrapper;
@@ -290,6 +312,7 @@ namespace Gavryk.Physics.Billiard
             public InputAction @RightFlipper => m_Wrapper.m_ControlMaster_RightFlipper;
             public InputAction @LeftFlipper => m_Wrapper.m_ControlMaster_LeftFlipper;
             public InputAction @Spring_Pinball => m_Wrapper.m_ControlMaster_Spring_Pinball;
+            public InputAction @InvokeBallGotchaAndPinball => m_Wrapper.m_ControlMaster_InvokeBallGotchaAndPinball;
             public InputActionMap Get() { return m_Wrapper.m_ControlMaster; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -317,6 +340,9 @@ namespace Gavryk.Physics.Billiard
                 @Spring_Pinball.started += instance.OnSpring_Pinball;
                 @Spring_Pinball.performed += instance.OnSpring_Pinball;
                 @Spring_Pinball.canceled += instance.OnSpring_Pinball;
+                @InvokeBallGotchaAndPinball.started += instance.OnInvokeBallGotchaAndPinball;
+                @InvokeBallGotchaAndPinball.performed += instance.OnInvokeBallGotchaAndPinball;
+                @InvokeBallGotchaAndPinball.canceled += instance.OnInvokeBallGotchaAndPinball;
             }
 
             private void UnregisterCallbacks(IControlMasterActions instance)
@@ -339,6 +365,9 @@ namespace Gavryk.Physics.Billiard
                 @Spring_Pinball.started -= instance.OnSpring_Pinball;
                 @Spring_Pinball.performed -= instance.OnSpring_Pinball;
                 @Spring_Pinball.canceled -= instance.OnSpring_Pinball;
+                @InvokeBallGotchaAndPinball.started -= instance.OnInvokeBallGotchaAndPinball;
+                @InvokeBallGotchaAndPinball.performed -= instance.OnInvokeBallGotchaAndPinball;
+                @InvokeBallGotchaAndPinball.canceled -= instance.OnInvokeBallGotchaAndPinball;
             }
 
             public void RemoveCallbacks(IControlMasterActions instance)
@@ -382,6 +411,7 @@ namespace Gavryk.Physics.Billiard
             void OnRightFlipper(InputAction.CallbackContext context);
             void OnLeftFlipper(InputAction.CallbackContext context);
             void OnSpring_Pinball(InputAction.CallbackContext context);
+            void OnInvokeBallGotchaAndPinball(InputAction.CallbackContext context);
         }
     }
 }
